@@ -1,0 +1,152 @@
+{
+  "items": [
+    {
+      "id": "promptathon-uc-davis",
+      "featured": true,
+      "clickable": true,
+      "title": "Prompt-a-thon @ UC Davis",
+      "styleLine": "Fast build challenge",
+      "locationLine": "UC Davis",
+      "school": "University of California, Davis",
+      "hostedBy": "Arlina Yang",
+      "audience": "Tech club students and campus builders",
+      "attendees": "54+",
+      "thumbnailImage": "/assets/events/featured/uc-davis-promptathon-group.jpg",
+      "imageSource": "real",
+      "gallery": [
+        {
+          "role": "primary",
+          "src": "/assets/events/featured/uc-davis-promptathon-group.jpg",
+          "alt": "UC Davis students holding 100 Chats books after a ChatGPT Lab prompt-a-thon."
+        },
+        {
+          "role": "room",
+          "src": "/assets/events/featured/uc-davis-promptathon-room.jpg",
+          "alt": "Students in a lecture hall during the UC Davis prompt-a-thon."
+        },
+        {
+          "role": "host",
+          "src": "/assets/events/featured/uc-davis-promptathon-host.jpg",
+          "alt": "UC Davis event hosts holding 100 Chats books."
+        }
+      ],
+      "eventPlaybook": [
+        "Partner with a campus tech club or builder community.",
+        "Run a 60-minute prompt-a-thon with clear tracks like developer, designer, and most creative build.",
+        "Give students time to ship or mock up a small AI-powered project.",
+        "Bring in a speaker, alum, or remote guest to make the event feel bigger than a workshop.",
+        "End with books, food, prizes, and a group photo."
+      ],
+      "reflection": "This format works when students want to make something, not just talk about AI. The clear challenge structure gives the room energy, while the tracks let technical and creative students both find a way in.",
+      "goodFor": "Great for tech clubs, hackathon groups, creative student communities, or campuses where students already like fast challenges."
+    },
+    {
+      "id": "chatgpt-game-night-georgia-tech",
+      "featured": true,
+      "clickable": true,
+      "title": "ChatGPT game night @ Georgia Tech",
+      "styleLine": "Playful discussion game",
+      "locationLine": "Georgia Tech",
+      "school": "Georgia Institute of Technology",
+      "hostedBy": "Daira Velasquez Fonseca",
+      "audience": "ColorStack @ GT members",
+      "attendees": "50+",
+      "thumbnailImage": "/assets/events/featured/georgia-tech-game-night-group.png",
+      "imageSource": "real",
+      "gallery": [
+        {
+          "role": "primary",
+          "src": "/assets/events/featured/georgia-tech-game-night-group.png",
+          "alt": "Georgia Tech students holding 100 Chats books after a ChatGPT Lab game night."
+        },
+        {
+          "role": "room",
+          "src": "/assets/events/featured/georgia-tech-game-night-room.png",
+          "alt": "Georgia Tech students standing in front of a ChatGPT prompt slide."
+        },
+        {
+          "role": "host",
+          "src": "/assets/events/featured/georgia-tech-game-night-host.png",
+          "alt": "Georgia Tech event host standing behind stacks of 100 Chats books."
+        }
+      ],
+      "eventPlaybook": [
+        "Partner with a student org that already has a strong community.",
+        "Open with funny prompts students can answer as if they were ChatGPT.",
+        "Give prizes for the best human-generated responses.",
+        "Run a second activity where students try to make AI disagree with them.",
+        "Use the games to spark discussion about sycophancy, trust, and how AI responds."
+      ],
+      "reflection": "The game format helps the room loosen up quickly. Once students are laughing and comparing responses, it becomes easier to talk honestly about trust, usefulness, and where AI feels strange.",
+      "goodFor": "Great for social clubs, first-time AI audiences, or any group where games can lead into real conversation."
+    },
+    {
+      "id": "ai-passport-wall-minerva",
+      "featured": false,
+      "clickable": false,
+      "title": "AI passport wall @ Minerva",
+      "styleLine": "Interactive feedback wall",
+      "locationLine": "Minerva University",
+      "school": "Minerva University",
+      "thumbnailImage": "/assets/events/cards/minerva-ai-passport-wall.JPG",
+      "imageSource": "real"
+    },
+    {
+      "id": "ai-club-summit-cornell",
+      "featured": false,
+      "clickable": false,
+      "title": "AI club summit @ Cornell",
+      "styleLine": "Club summit",
+      "locationLine": "Cornell University",
+      "school": "Cornell University",
+      "thumbnailImage": "/assets/events/cards/cornell-ai-club-summit.jpg",
+      "imageSource": "real"
+    },
+    {
+      "id": "campus-pain-point-contest-kansas",
+      "featured": false,
+      "clickable": false,
+      "title": "Campus pain point contest @ University of Kansas",
+      "styleLine": "Problem-finding challenge",
+      "locationLine": "University of Kansas",
+      "school": "University of Kansas",
+      "thumbnailImage": "/assets/events/cards/kansas-campus-pain-point-contest.jpg",
+      "imageSource": "real"
+    },
+    {
+      "id": "ai-questions-tabling-cerritos",
+      "featured": false,
+      "clickable": false,
+      "title": "AI questions tabling @ Cerritos College",
+      "styleLine": "Walk-up campus tabling",
+      "locationLine": "Cerritos College",
+      "school": "Cerritos College",
+      "thumbnailImage": "/assets/events/cards/cerritos-ai-questions-tabling.jpg",
+      "imageSource": "real"
+    },
+    {
+      "id": "greek-life-ai-conversation-denver",
+      "featured": false,
+      "clickable": false,
+      "title": "Greek life AI conversation @ University of Denver",
+      "styleLine": "Chill real-use discussion",
+      "locationLine": "University of Denver",
+      "school": "University of Denver",
+      "thumbnailImage": "/assets/events/cards/denver-greek-life-ai-conversation.jpeg",
+      "imageSource": "real",
+      "sourceNote": "The event covered trip planning, career prep, everyday tools, and a discussion around whether AI scares students."
+    },
+    {
+      "id": "founder-open-mic-uc-irvine",
+      "featured": false,
+      "clickable": false,
+      "title": "Founder open mic @ UC Irvine",
+      "styleLine": "Open-mic show and tell",
+      "locationLine": "UC Irvine",
+      "school": "University of California, Irvine",
+      "thumbnailImage": "/assets/events/cards/uc-irvine-founder-open-mic.jpg",
+      "imageSource": "real",
+      "sourceNote": "The event became an open-mic exchange where student founders shared AI workflows, chats, jokes, and practical uses."
+    }
+  ]
+}

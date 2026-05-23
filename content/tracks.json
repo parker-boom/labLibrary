@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "id": "show-and-tell",
+      "featured": true,
+      "clickable": true,
+      "title": "Show & Tell",
+      "description": "Beginner-friendly examples for getting started",
+      "iconObject": "A pixel-art mini stage with a screen, two chairs, and a small smiling chat bubble.",
+      "iconAsset": null,
+      "bestFor": "Hosts who want a low-friction room where students can see practical examples, compare workflows, and realize their peers are already using AI in grounded ways.",
+      "runOfShow": [
+        {
+          "duration": "5 min",
+          "step": "Open with one strong student example."
+        },
+        {
+          "duration": "10 min",
+          "step": "Invite two or three students to share how they already use AI."
+        },
+        {
+          "duration": "15 min",
+          "step": "Demo a few practical workflows live."
+        },
+        {
+          "duration": "15 min",
+          "step": "Discuss one big question the examples raise."
+        },
+        {
+          "duration": "5 min",
+          "step": "Have everyone write down one thing they want to try."
+        }
+      ],
+      "useThisWith": [
+        "managing-chaotic-week-google-calendar",
+        "talking-through-job-offer-deep-research",
+        "finding-wasted-time-data-analysis"
+      ],
+      "relatedEvents": [
+        "chatgpt-game-night-georgia-tech",
+        "founder-open-mic-uc-irvine"
+      ]
+    },
+    {
+      "id": "prompt-a-thon",
+      "featured": true,
+      "clickable": true,
+      "title": "Prompt-A-Thon",
+      "description": "A quick activity for testing and remixing workflows",
+      "iconObject": "A pixel-art stack of prompt cards, a lightning bolt, and a small stopwatch.",
+      "iconAsset": null,
+      "bestFor": "Students who already use ChatGPT casually and need a structured way to try better workflows on real tasks.",
+      "runOfShow": [
+        {
+          "duration": "5 min",
+          "step": "Pick one real task."
+        },
+        {
+          "duration": "10 min",
+          "step": "Try a starting prompt."
+        },
+        {
+          "duration": "10 min",
+          "step": "Remix it with a feature or constraint."
+        },
+        {
+          "duration": "5 min",
+          "step": "Share one useful result."
+        }
+      ],
+      "useThisWith": [
+        "practicing-interviews-voice-mode",
+        "making-club-posters-image-generation",
+        "mapping-codebase-github-mermaid"
+      ],
+      "relatedEvents": [
+        "promptathon-uc-davis",
+        "campus-pain-point-contest-kansas"
+      ]
+    },
+    {
+      "id": "builder-lab",
+      "featured": false,
+      "clickable": false,
+      "title": "Builder Lab",
+      "description": "A longer session for solving real problems with AI",
+      "iconObject": "A pixel-art toolbox with a wrench, pencil, code block, and tiny green blocks.",
+      "iconAsset": null,
+      "status": "inactive-v1"
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "items": [
+    {
+      "id": "practicing-interviews-voice-mode",
+      "featured": true,
+      "clickable": true,
+      "title": "Practicing interviews with voice mode",
+      "featureLabel": "Voice mode",
+      "sharedBy": "Timothy Ou",
+      "school": "California State University, Fullerton",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A colorful pixel-art studio microphone with small sound-wave ticks, like a retro arcade interview booth.",
+      "iconAsset": null,
+      "chatExample": [
+        {
+          "role": "user",
+          "text": "I have a SWE interview coming up. Can you interview me out loud and push back if my answers are vague?"
+        },
+        {
+          "role": "assistant",
+          "text": "Absolutely. Let's start behavioral, then move technical. First question: tell me about a time you worked through a difficult bug. Keep it under two minutes."
+        },
+        {
+          "role": "user",
+          "text": "I worked on a class project where the API kept failing and I had to figure out why."
+        },
+        {
+          "role": "assistant",
+          "text": "That's a start, but it's too general. Try again with the STAR structure: what was the project, what broke, what did you personally do, and what changed because of it?"
+        }
+      ],
+      "process": [
+        "Add your resume, role, company, and interview type.",
+        "Ask ChatGPT to act like a real interviewer, not a hype coach.",
+        "Use voice mode to practice answering out loud.",
+        "Ask for sharper follow-ups, better structure, and cleaner wording."
+      ],
+      "result": "Interview practice that feels closer to the real thing.",
+      "eventRemix": "Run a mock interview circle where students practice one answer, get feedback, then try again out loud."
+    },
+    {
+      "id": "managing-chaotic-week-google-calendar",
+      "featured": true,
+      "clickable": true,
+      "title": "Managing a chaotic week with Google Calendar",
+      "featureLabel": "Google Calendar",
+      "sharedBy": "Chloe Chun",
+      "school": "University of California, Irvine",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art calendar page packed with tiny colored blocks, alarms, and one highlighted open time slot.",
+      "iconAsset": null,
+      "chatExample": [
+        {
+          "role": "user",
+          "text": "I'm behind in two classes, have a project due, and my week is packed. Can you look at my calendar and help me make a real plan?"
+        },
+        {
+          "role": "assistant",
+          "text": "Yes. I'll separate fixed commitments from flexible work time first. Then I'll help you decide what has to happen today, what can wait, and where the open blocks actually are."
+        },
+        {
+          "role": "user",
+          "text": "Prioritize my programming project and econ midterm. I keep pretending I have more time than I do."
+        },
+        {
+          "role": "assistant",
+          "text": "Then the plan should be defensive. Put the programming project first in your longest open blocks, use shorter blocks for econ review, and leave one buffer block so the week doesn't collapse if one task runs long."
+        }
+      ],
+      "process": [
+        "Connect Google Calendar or paste your week.",
+        "Add deadlines, classes, work blocks, and what you are behind on.",
+        "Ask ChatGPT to find realistic open time, not fantasy time.",
+        "Turn the week into a day-by-day plan with buffers."
+      ],
+      "result": "A schedule that feels usable instead of theoretical.",
+      "eventRemix": "Run a calendar rescue activity where students bring one messy week and leave with a first-pass recovery plan."
+    },
+    {
+      "id": "planning-campus-gala-projects",
+      "featured": true,
+      "clickable": true,
+      "title": "Planning a campus gala with Projects",
+      "featureLabel": "Projects",
+      "sharedBy": "Tina Lin",
+      "school": "Cornell University",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art green project folder open to reveal a checklist, tiny stage lights, and a party ticket.",
+      "iconAsset": null,
+      "chatExample": [
+        {
+          "role": "user",
+          "text": "I'm planning a club gala in one month. I have meeting notes, food ideas, a budget, and a bunch of half-decided tasks. Can you help me organize it?"
+        },
+        {
+          "role": "assistant",
+          "text": "Yes. Put everything into a Project so I can keep the context together. I'll turn it into a master plan with sections for budget, food, outreach, programming, and owners."
+        },
+        {
+          "role": "user",
+          "text": "Make it less overwhelming. I need something I can actually share with the team."
+        },
+        {
+          "role": "assistant",
+          "text": "Got it. I'll split it into a simple run-of-show, a task tracker, and a short food/activity plan. Each task should have an owner, deadline, and next step."
+        }
+      ],
+      "process": [
+        "Create a Project for the event.",
+        "Add meeting notes, budget notes, club info, and event ideas.",
+        "Ask for a master plan, then simplify it into working docs.",
+        "Use follow-up chats for food, activities, outreach, and day-of logistics."
+      ],
+      "result": "One place where the event stops feeling scattered.",
+      "eventRemix": "Have students bring a real club event idea and build a mini event plan in 20 minutes: audience, format, tasks, and day-of flow."
+    },
+    {
+      "id": "talking-through-job-offer-deep-research",
+      "featured": false,
+      "clickable": false,
+      "title": "Talking through a job offer with deep research",
+      "featureLabel": "Deep research",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art job offer letter with a magnifying glass, tiny salary bars, and a highlighted negotiation note.",
+      "iconAsset": null
+    },
+    {
+      "id": "figuring-out-money-data-analysis",
+      "featured": false,
+      "clickable": false,
+      "title": "Figuring out where my money goes with data analysis",
+      "featureLabel": "Data analysis",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art wallet spilling receipts beside a small bar chart and coin stack.",
+      "iconAsset": null
+    },
+    {
+      "id": "making-club-posters-image-generation",
+      "featured": false,
+      "clickable": false,
+      "title": "Making club posters with image generation",
+      "featureLabel": "Image generation",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art event poster on a clipboard with bright stars, paint pixels, and a tiny image sparkle.",
+      "iconAsset": null
+    },
+    {
+      "id": "messy-notes-study-sheet-thinking",
+      "featured": false,
+      "clickable": false,
+      "title": "Turning messy notes into a study sheet with a thinking model",
+      "featureLabel": "Thinking model",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art notebook with scattered sticky notes transforming into one clean study page.",
+      "iconAsset": null
+    },
+    {
+      "id": "mapping-codebase-github-mermaid",
+      "featured": false,
+      "clickable": false,
+      "title": "Mapping a codebase with GitHub and Mermaid",
+      "featureLabel": "GitHub + Mermaid",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art laptop showing connected code boxes and a tiny GitHub-style branch diagram.",
+      "iconAsset": null
+    },
+    {
+      "id": "meeting-notes-to-do-list-apps",
+      "featured": false,
+      "clickable": false,
+      "title": "Pulling meeting notes into a to-do list with apps",
+      "featureLabel": "Apps",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art meeting notebook turning into a checklist with app connector plugs on the side.",
+      "iconAsset": null
+    },
+    {
+      "id": "travel-japanese-study-mode",
+      "featured": false,
+      "clickable": false,
+      "title": "Practicing travel Japanese with Study mode",
+      "featureLabel": "Study mode",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art passport and speech bubble with simple Japanese characters over a tiny train ticket.",
+      "iconAsset": null
+    },
+    {
+      "id": "old-posts-canva-carousel-apps",
+      "featured": false,
+      "clickable": false,
+      "title": "Turning old posts into a Canva carousel with apps",
+      "featureLabel": "Canva apps",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art stack of social media slides with a Canva-like design panel and rewrite sparkles.",
+      "iconAsset": null
+    },
+    {
+      "id": "mocking-up-product-deep-research",
+      "featured": false,
+      "clickable": false,
+      "title": "Mocking up a product idea with deep research",
+      "featureLabel": "Deep research",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art product screen wireframe beside a research report and tiny competitor cards.",
+      "iconAsset": null
+    },
+    {
+      "id": "finding-wasted-time-data-analysis",
+      "featured": false,
+      "clickable": false,
+      "title": "Finding wasted time with data analysis",
+      "featureLabel": "Data analysis",
+      "sourceType": "real-reconstructed",
+      "iconObject": "A pixel-art phone screen-time chart with an hourglass and colored app blocks.",
+      "iconAsset": null
+    }
+  ]
+}
