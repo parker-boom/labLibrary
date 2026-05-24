@@ -1,7 +1,13 @@
+"use client";
+
 import type { CSSProperties } from "react";
+import { playArcadeBlip } from "@/components/client-sound";
 import { MotionCard } from "@/components/MotionCard";
 import { PixelIcon } from "@/components/PixelIcon";
 import { labLibrarySections, type LabLibrarySection } from "@/lib/sections";
+
+const INTRO_STORAGE_KEY = "lab-library:intro-seen";
+const INTRO_COOKIE_KEY = "lab-library-intro-seen";
 
 const homeLoopSprites: Record<LabLibrarySection["id"], string> = {
   tracks: "/assets/generated/home-hover-loops/portal-loop-sheet.png",
@@ -26,33 +32,76 @@ function HomeCardScene({ portal }: { portal: LabLibrarySection }) {
   );
 }
 
+function markIntroSeen() {
+  document.cookie = `${INTRO_COOKIE_KEY}=true; Path=/; Max-Age=31536000; SameSite=Lax`;
+
+  try {
+    window.localStorage.setItem(INTRO_STORAGE_KEY, "true");
+  } catch {
+    // The data attribute still advances the current session if storage is blocked.
+  }
+
+  document.documentElement.dataset.labIntro = "seen";
+  playArcadeBlip("select");
+}
+
 export function HomePortal() {
   return (
-    <div className="home-page">
-      <section className="home-hero">
-        <div className="home-hero__copy">
-          <h1>Lab Arcade</h1>
+    <>
+      <section className="home-intro" aria-labelledby="home-intro-title">
+        <div className="home-intro__panel">
+          <div className="home-intro__copy">
+            <h1 id="home-intro-title">Lab Arcade</h1>
+            <p className="home-intro__welcome">Welcome, host.</p>
+            <p>
+              Explore the arcade and find inspiration for your next event.
+            </p>
+          </div>
+
+          <div className="home-intro__records" aria-label="Choose your adventure">
+            <p className="micro-label">Choose your adventure:</p>
+            {labLibrarySections.map((portal) => (
+              <div className="home-intro__record" key={portal.id}>
+                <PixelIcon imageSrc={portal.homeIconSrc} size="sm" />
+                <div>
+                  <h2>{portal.homeTitle}</h2>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button className="button home-intro__start" onClick={markIntroSeen} type="button">
+            Enter the Arcade <span aria-hidden="true">&gt;</span>
+          </button>
         </div>
       </section>
 
-      <section className="portal-grid" aria-label="Lab Library sections">
-        {labLibrarySections.map((portal) => (
-          <MotionCard
-            ariaLabel={`Open ${portal.homeTitle}`}
-            className={`portal-card portal-card--${portal.id}`}
-            href={portal.href}
-            key={portal.id}
-          >
-            <div className="portal-card__icon">
-              <HomeCardScene portal={portal} />
-            </div>
-            <div className="portal-card__body">
-              <h2>{portal.homeTitle}</h2>
-              <span>{portal.detail}</span>
-            </div>
-          </MotionCard>
-        ))}
-      </section>
-    </div>
+      <div className="home-page">
+        <section className="home-hero">
+          <div className="home-hero__copy">
+            <h1>Lab Arcade</h1>
+          </div>
+        </section>
+
+        <section className="portal-grid" aria-label="Lab Library sections">
+          {labLibrarySections.map((portal) => (
+            <MotionCard
+              ariaLabel={`Open ${portal.homeTitle}`}
+              className={`portal-card portal-card--${portal.id}`}
+              href={portal.href}
+              key={portal.id}
+            >
+              <div className="portal-card__icon">
+                <HomeCardScene portal={portal} />
+              </div>
+              <div className="portal-card__body">
+                <h2>{portal.homeTitle}</h2>
+                <span>{portal.detail}</span>
+              </div>
+            </MotionCard>
+          ))}
+        </section>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-# First-Launch Lab Archive Intro
+# First-Launch Lab Arcade Intro
 
 ## Purpose
 
@@ -19,24 +19,21 @@ The exact source-of-truth text below supersedes any slightly older copy visible 
 ## First-Launch Copy
 
 ```text
-LAB ARCHIVE
+LAB ARCADE
 
-Welcome new host!
+Welcome, host.
 
-Lab alumni have stored records from the field to help you get started.
+Explore the arcade and find inspiration for your next event.
 
-CHOOSE YOUR FIRST RECORD:
+CHOOSE YOUR ADVENTURE:
 
-Event Missions
-Event playbooks and run plans.
+Start A New Mission
 
-Use-Case Vault
-Student workflows, prompts, and examples.
+Level Up Your AI Skills
 
-Field Reports
-Records from real Lab events.
+Explore the Archive
 
-Enter the Archive >
+Enter the Arcade >
 ```
 
 ## Home Screen Copy
@@ -44,14 +41,14 @@ Enter the Archive >
 After the first-launch intro, the home screen should use the same three record names and the same compact descriptions:
 
 ```text
-Event Missions
-Event playbooks and run plans.
+Start A New Mission
+Choose your event path
 
-Use-Case Vault
-Student workflows, prompts, and examples.
+Level Up Your AI Skills
+Upgrade with student examples
 
-Field Reports
-Records from real Lab events.
+Explore the Archive
+Uncover notes from past hosts
 ```
 
 Do not add a home subtitle for now. The home screen should feel like a choice screen, not a second onboarding explanation.
@@ -59,8 +56,8 @@ Do not add a home subtitle for now. The home screen should feel like a choice sc
 ## Behavior
 
 - Show the intro only on first launch for a visitor.
-- Store dismissal locally, for example in `localStorage`.
-- The primary action is `Enter the Archive >`.
+- Store dismissal locally with the `lab-library-intro-seen` cookie; the client also mirrors the value to `localStorage` for backward compatibility.
+- The primary action is `Enter the Arcade >`.
 - After dismissal, show the normal home menu with the three records.
 - Avoid blocking direct route visits like `/use-cases`, `/events`, or `/tracks`; the intro belongs to the homepage entry path.
 

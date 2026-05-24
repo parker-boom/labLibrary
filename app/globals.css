@@ -285,6 +285,170 @@ img {
   text-transform: uppercase;
 }
 
+html:not([data-lab-intro="seen"]) .home-page {
+  display: none;
+}
+
+html[data-lab-intro="seen"] .home-intro {
+  display: none;
+}
+
+.home-intro {
+  align-content: center;
+  display: grid;
+  min-height: calc(100vh - 188px);
+  position: relative;
+}
+
+.home-intro__panel {
+  background:
+    linear-gradient(180deg, rgba(247, 243, 232, 0.12), transparent 38%),
+    var(--yellow);
+  border: 4px solid var(--black);
+  box-shadow:
+    10px 10px 0 rgba(216, 185, 20, 0.32),
+    0 0 0 2px rgba(247, 243, 232, 0.12);
+  color: var(--ink);
+  display: grid;
+  gap: 20px;
+  justify-self: center;
+  max-width: 790px;
+  overflow: hidden;
+  padding: 26px;
+  position: relative;
+  width: min(100%, 760px);
+}
+
+.home-intro__panel::before {
+  background:
+    linear-gradient(90deg, rgba(17, 16, 10, 0.09) 1px, transparent 1px),
+    linear-gradient(rgba(17, 16, 10, 0.08) 1px, transparent 1px);
+  background-size: 12px 12px;
+  content: "";
+  inset: 0;
+  opacity: 0.5;
+  pointer-events: none;
+  position: absolute;
+}
+
+.home-intro__panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-intro__copy {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+.home-intro__copy::after {
+  background:
+    repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 13px);
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  opacity: 0.72;
+  position: absolute;
+  right: 0;
+}
+
+.home-intro__copy h1 {
+  font-family: var(--display);
+  font-size: clamp(3.7rem, 8vw, 5.9rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.86;
+  margin: 0;
+  text-shadow: 4px 4px 0 rgba(247, 243, 232, 0.34);
+  text-transform: uppercase;
+}
+
+.home-intro__copy p {
+  font-family: var(--mono);
+  font-size: clamp(0.92rem, 1.14vw, 1.02rem);
+  font-weight: 900;
+  line-height: 1.32;
+  margin: 0;
+  max-width: 620px;
+  text-transform: uppercase;
+}
+
+.home-intro__welcome {
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+
+.home-intro__records {
+  display: grid;
+  gap: 10px;
+}
+
+.home-intro__record {
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(247, 243, 232, 0.92), rgba(229, 221, 201, 0.9));
+  border: 3px solid var(--ink);
+  box-shadow:
+    inset 0 0 0 2px rgba(247, 243, 232, 0.42),
+    5px 5px 0 rgba(17, 16, 10, 0.2);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 62px minmax(0, 1fr);
+  min-height: 72px;
+  padding: 11px 12px;
+}
+
+.home-intro__record .pixel-icon {
+  filter: drop-shadow(2px 3px 0 rgba(17, 16, 10, 0.18));
+}
+
+.home-intro__record h2 {
+  font-family: var(--display);
+  font-size: clamp(1.56rem, 2.4vw, 2.05rem);
+  letter-spacing: 0;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.button.home-intro__start {
+  align-items: center;
+  background:
+    linear-gradient(180deg, #f5f2ea 0%, #c9c7c0 58%, #969590 100%);
+  border: 3px solid var(--ink);
+  box-shadow:
+    inset 4px 4px 0 rgba(255, 255, 255, 0.72),
+    inset -4px -4px 0 rgba(74, 72, 66, 0.42),
+    7px 7px 0 rgba(17, 16, 10, 0.38);
+  color: #3b3935;
+  display: inline-flex;
+  font-size: clamp(1.18rem, 2.4vw, 1.78rem);
+  gap: 12px;
+  justify-self: center;
+  min-height: 70px;
+  min-width: min(100%, 430px);
+  padding: 14px 28px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.button.home-intro__start:hover,
+.button.home-intro__start:focus-visible {
+  filter: brightness(1.04) contrast(1.02);
+  outline: 2px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.button.home-intro__start:active {
+  box-shadow:
+    inset 3px 3px 0 rgba(74, 72, 66, 0.34),
+    inset -3px -3px 0 rgba(255, 255, 255, 0.52),
+    3px 3px 0 rgba(17, 16, 10, 0.34);
+  transform: translate3d(3px, 3px, 0);
+}
+
 .home-page {
   align-content: center;
   display: grid;
@@ -2685,6 +2849,24 @@ img {
 
   .home-hero {
     min-height: 0;
+  }
+
+  .home-intro {
+    min-height: calc(100vh - 112px);
+  }
+
+  .home-intro__panel {
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .home-intro__record {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .home-intro__record .pixel-icon {
+    height: 44px;
+    width: 48px;
   }
 
   .home-hero::before,

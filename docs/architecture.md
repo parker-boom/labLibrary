@@ -73,6 +73,7 @@ Generated sprite mappings live in `lib/sprites.ts`. Section metadata for the hom
 
 ## Interaction Model
 
+- The homepage includes a first-launch intro. `app/layout.tsx` reads the `lab-library-intro-seen` cookie and renders `html[data-lab-intro="seen"]` for returning visitors, preventing an intro flash before the home menu.
 - `MotionCard` centralizes card hover, press, link/button behavior, and sound triggers.
 - `RouteStage` handles the restrained page transition between routes.
 - `useModalLifecycle` centralizes modal scroll locking and Escape-to-close behavior.

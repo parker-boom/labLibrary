@@ -33,7 +33,8 @@ The legacy shell wrapper also delegates to the same command:
 
 For changes that can affect rendering, routing, assets, or interactions, inspect these surfaces:
 
-- `/`
+- `/` with the `lab-library-intro-seen` cookie cleared.
+- `/` with the `lab-library-intro-seen` cookie set to `true`.
 - `/missions`
 - `/missions#show-and-tell`
 - `/workflows`
@@ -52,6 +53,7 @@ For route compatibility, also spot-check:
 
 - Working tree is clean before starting, or unrelated user changes are left untouched.
 - No stale scaffold/planning docs remain in the deployable tree.
+- First-launch intro appears only on the homepage and only until dismissed.
 - All referenced images exist under `public/assets/`.
 - No unused generated source sheets are shipped in `public/assets/generated/`.
 - `npm run verify` passes.

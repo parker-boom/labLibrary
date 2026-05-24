@@ -6,7 +6,7 @@ Retro-arcade prototype for Parker's ChatGPT Lab / student-community work. The ap
 
 Primary routes:
 
-- `/` - Lab Arcade home menu.
+- `/` - first-launch intro for new visitors, then the Lab Arcade home menu.
 - `/missions` - event missions. `Show & Tell` and `Prompt-A-Thon` open modal/detail states; `Builder Lab` is visible but locked.
 - `/workflows` - student workflows with route-backed modal details for clickable examples.
 - `/reports` - real event reports with photo-led modal details for clickable reports.
@@ -49,6 +49,8 @@ npm run verify
 - `public/assets/generated/` - generated pixel icons and hover sprite sheets used by the interface.
 
 Generated asset notes live in [public/assets/generated/README.md](public/assets/generated/README.md).
+
+The first-launch intro behavior is documented in [docs/onboarding-intro-spec.md](docs/onboarding-intro-spec.md).
 
 ## Deployment Notes
 
