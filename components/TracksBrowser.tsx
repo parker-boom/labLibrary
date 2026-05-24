@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Home, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { playArcadeBlip } from "@/components/client-sound";
 import { PageHeader } from "@/components/PageHeader";
 import { PixelIcon } from "@/components/PixelIcon";
 import { RouteLink } from "@/components/RouteLink";
@@ -111,6 +112,8 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
   }
 
   function closeTrack() {
+    playArcadeBlip("soft");
+
     if (window.history.state?.labLibraryModal) {
       window.history.back();
       return;
@@ -132,8 +135,11 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
         >
           <button aria-label="Close track" className="use-case-modal__scrim" onClick={closeTrack} type="button" />
           <motion.article
+            animate={reduce ? undefined : { opacity: 1, scale: 1, y: 0 }}
             aria-labelledby={`${selected.id}-track-modal-title`}
             className="track-modal__panel use-case-modal__panel"
+            exit={reduce ? undefined : { opacity: 0, scale: 0.985, y: 10 }}
+            initial={reduce ? false : { opacity: 0.92, scale: 0.985, y: 12 }}
             layoutId={modalId(selected.id)}
             role="dialog"
             transition={{ duration: reduce ? 0 : 0.44, ease: [0.22, 1, 0.36, 1] }}

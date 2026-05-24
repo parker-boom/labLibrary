@@ -15,7 +15,7 @@ export function HomePortal() {
         {labLibrarySections.map((portal) => (
           <MotionCard
             ariaLabel={`Open ${portal.homeTitle}`}
-            className="portal-card"
+            className={`portal-card portal-card--${portal.id}`}
             href={portal.href}
             key={portal.id}
           >

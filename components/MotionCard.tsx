@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
+import { playArcadeBlip } from "@/components/client-sound";
 import { RouteLink } from "@/components/RouteLink";
 import { cx } from "@/lib/text";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
@@ -36,6 +37,23 @@ export function MotionCard({
     return () => cancelAnimationFrame(frame);
   }, []);
 
+  function playHoverSound() {
+    if (!disabled) {
+      playArcadeBlip("hover");
+    }
+  }
+
+  function playSelectSound() {
+    if (!disabled) {
+      playArcadeBlip("select");
+    }
+  }
+
+  function handleButtonClick() {
+    playSelectSound();
+    onClick?.();
+  }
+
   const card = (
     <motion.article
       aria-disabled={disabled || undefined}
@@ -64,14 +82,26 @@ export function MotionCard({
     }
 
     return (
-      <button aria-label={ariaLabel} className={cx("motion-card-button", linkClassName)} onClick={onClick} type="button">
+      <button
+        aria-label={ariaLabel}
+        className={cx("motion-card-button", linkClassName)}
+        onClick={handleButtonClick}
+        onMouseEnter={playHoverSound}
+        type="button"
+      >
         {card}
       </button>
     );
   }
 
   return (
-    <RouteLink aria-label={ariaLabel} className={cx("motion-card-link", linkClassName)} href={href}>
+    <RouteLink
+      aria-label={ariaLabel}
+      className={cx("motion-card-link", linkClassName)}
+      href={href}
+      onClick={playSelectSound}
+      onMouseEnter={playHoverSound}
+    >
       {card}
     </RouteLink>
   );

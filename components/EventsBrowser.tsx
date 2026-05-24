@@ -5,6 +5,7 @@ import { Home, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { playArcadeBlip } from "@/components/client-sound";
 import { EventCard } from "@/components/EventCard";
 import { PageHeader } from "@/components/PageHeader";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
@@ -108,6 +109,8 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
   }
 
   function closeEvent() {
+    playArcadeBlip("soft");
+
     if (window.history.state?.labLibraryEventModal) {
       window.history.back();
       return;
@@ -129,8 +132,11 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
         >
           <button aria-label="Close event" className="event-modal__scrim" onClick={closeEvent} type="button" />
           <motion.article
+            animate={reduce ? undefined : { opacity: 1, scale: 1, y: 0 }}
             aria-labelledby={`${selected.id}-event-modal-title`}
             className="event-modal__panel"
+            exit={reduce ? undefined : { opacity: 0, scale: 0.985, y: 10 }}
+            initial={reduce ? false : { opacity: 0.92, scale: 0.985, y: 12 }}
             layoutId={modalId(selected.id)}
             role="dialog"
             transition={{ duration: reduce ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}

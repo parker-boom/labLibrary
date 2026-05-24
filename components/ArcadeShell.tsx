@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { RouteStage } from "@/components/RouteStage";
+import { SoundToggle } from "@/components/SoundToggle";
 
 export function ArcadeShell({ children }: { children: ReactNode }) {
   return (
@@ -7,6 +8,7 @@ export function ArcadeShell({ children }: { children: ReactNode }) {
       <div className="ambient-grid" aria-hidden="true" />
       <div className="ambient-pixels" aria-hidden="true" />
       <RouteStage>{children}</RouteStage>
+      <SoundToggle />
     </div>
   );
 }

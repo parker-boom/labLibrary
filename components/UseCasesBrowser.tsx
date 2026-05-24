@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Home, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { playArcadeBlip } from "@/components/client-sound";
 import { PageHeader } from "@/components/PageHeader";
 import { PixelIcon } from "@/components/PixelIcon";
 import { RouteLink } from "@/components/RouteLink";
@@ -121,6 +122,8 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
   }
 
   function closeUseCase() {
+    playArcadeBlip("soft");
+
     if (window.history.state?.labLibraryModal) {
       window.history.back();
       return;
@@ -142,8 +145,11 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
         >
           <button aria-label="Close use case" className="use-case-modal__scrim" onClick={closeUseCase} type="button" />
           <motion.article
+            animate={reduce ? undefined : { opacity: 1, scale: 1, y: 0 }}
             aria-labelledby={`${selected.id}-modal-title ${selected.id}-modal-feature`}
             className="use-case-modal__panel"
+            exit={reduce ? undefined : { opacity: 0, scale: 0.985, y: 10 }}
+            initial={reduce ? false : { opacity: 0.92, scale: 0.985, y: 12 }}
             layoutId={modalId(selected.id)}
             role="dialog"
             transition={{ duration: reduce ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}
