@@ -73,10 +73,6 @@ export const useCases = useCasesData.items as UseCase[];
 export const events = eventsData.items as LabEvent[];
 export const tracks = tracksData.items as Track[];
 
-export const featuredUseCases = useCases.filter((item) => item.featured);
-export const featuredEvents = events.filter((item) => item.featured);
-export const activeTracks = tracks.filter((item) => item.clickable);
-
 export function getUseCase(id: string) {
   return useCases.find((item) => item.id === id);
 }
@@ -104,27 +100,3 @@ export type RemixItem = {
   label: string;
   detail?: string;
 };
-
-export const remixItems: RemixItem[] = [
-  ...tracks.map((item) => ({
-    id: item.id,
-    type: "track" as const,
-    title: item.title,
-    label: item.clickable ? "Track" : "Track locked",
-    detail: item.description
-  })),
-  ...useCases.map((item) => ({
-    id: item.id,
-    type: "useCase" as const,
-    title: item.title,
-    label: item.featureLabel,
-    detail: item.school
-  })),
-  ...events.map((item) => ({
-    id: item.id,
-    type: "event" as const,
-    title: item.title,
-    label: item.styleLine,
-    detail: item.locationLine
-  }))
-];

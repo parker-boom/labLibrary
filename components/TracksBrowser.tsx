@@ -12,11 +12,10 @@ import { TrackCard } from "@/components/TrackCard";
 import { TrackStarterKit } from "@/components/TrackStarterKit";
 import { getEventsByIds, getUseCasesByIds, type Track } from "@/lib/content";
 import { iconForTrack } from "@/lib/sprites";
-import { cx } from "@/lib/text";
+import { useBodyScrollLock, useEscapeClose } from "@/lib/useModalLifecycle";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type TracksBrowserProps = {
-  iconVariant?: TrackIconVariant;
   items: Track[];
 };
 
@@ -24,9 +23,7 @@ function modalId(id: string) {
   return `track-modal-${id}`;
 }
 
-type TrackIconVariant = "plain" | "square" | "compact";
-
-export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserProps) {
+export function TracksBrowser({ items }: TracksBrowserProps) {
   const [selectedId, setSelectedId] = useState<string | null>(() => {
     if (typeof window === "undefined") {
       return null;
@@ -58,17 +55,7 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
     };
   }, [items]);
 
-  useEffect(() => {
-    if (!selectedId) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedId]);
+  useBodyScrollLock(Boolean(selectedId));
 
   useEffect(() => {
     if (!selectedId) {
@@ -87,20 +74,7 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
     };
   }, [selectedId]);
 
-  useEffect(() => {
-    if (!selectedId) {
-      return;
-    }
-
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        closeTrack();
-      }
-    }
-
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  });
+  useEscapeClose(Boolean(selectedId), closeTrack);
 
   function openTrack(track: Track) {
     if (!track.clickable) {
@@ -141,6 +115,7 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
             exit={{ opacity: 0, scale: reduce ? 0.995 : 0.985, y: reduce ? 5 : 10 }}
             initial={{ opacity: 0.9, scale: reduce ? 0.995 : 0.985, y: reduce ? 6 : 12 }}
             layoutId={modalId(selected.id)}
+            aria-modal="true"
             role="dialog"
             transition={{ duration: reduce ? 0.2 : 0.44, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -181,7 +156,7 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
             Pick a mission to see what the event is and how to bring it to campus.
           </p>
         </PageHeader>
-        <section className={cx("track-list", `track-list--icons-${iconVariant}`)} aria-label="Missions">
+        <section className="track-list track-list--icons-plain" aria-label="Missions">
           {items.map((track) => (
             <TrackCard
               key={track.id}

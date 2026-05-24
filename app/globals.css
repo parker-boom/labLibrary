@@ -1250,28 +1250,6 @@ img {
   width: 120px;
 }
 
-.track-list--icons-compact .track-card {
-  gap: 14px;
-  grid-template-columns: minmax(0, 1fr) 104px;
-  min-height: 112px;
-  padding: 10px 14px;
-}
-
-.track-list--icons-compact .track-card__media {
-  height: 86px;
-  padding: 8px;
-  width: 86px;
-}
-
-.track-list--icons-compact .track-card h2 {
-  font-size: clamp(2.22rem, 3.75vw, 3.42rem);
-}
-
-.track-list--icons-compact .track-card p:last-child {
-  font-size: clamp(0.9rem, 1.04vw, 1rem);
-  margin-top: 6px;
-}
-
 .track-card__body {
   align-content: center;
   display: grid;
@@ -1850,18 +1828,6 @@ img {
   font-size: 0.56rem;
   line-height: 1.1;
   margin-top: 5px;
-}
-
-.track-modal .related-grid {
-  align-items: start;
-}
-
-.track-modal .mini-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.track-modal .mini-grid--events {
-  grid-template-columns: 1fr;
 }
 
 .track-modal .library-card {
@@ -2463,31 +2429,6 @@ img {
   margin: 0;
 }
 
-.related-grid {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-}
-
-.mini-grid {
-  display: grid;
-  gap: 14px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 10px;
-}
-
-.mini-grid .library-card {
-  min-height: 220px;
-}
-
-.mini-grid .library-card h2 {
-  font-size: 1.75rem;
-}
-
-.mini-grid--events {
-  grid-template-columns: 1fr;
-}
-
 .button,
 .icon-button {
   border: 0;
@@ -2702,10 +2643,6 @@ img {
   .detail-grid--use-case,
   .detail-grid--event,
   .detail-grid--event-modal,
-  .related-grid {
-    grid-template-columns: 1fr;
-  }
-
   .home-hero__copy h1 {
     font-size: 4.8rem;
   }
@@ -2777,8 +2714,7 @@ img {
 
   .portal-grid,
   .library-grid--use-cases,
-  .library-grid--events,
-  .mini-grid {
+  .library-grid--events {
     grid-template-columns: 1fr;
   }
 

@@ -11,6 +11,8 @@ import { RouteLink } from "@/components/RouteLink";
 import { UseCaseCard } from "@/components/UseCaseCard";
 import type { UseCase } from "@/lib/content";
 import { iconForUseCase } from "@/lib/sprites";
+import { splitUseCaseTitle } from "@/lib/text";
+import { useBodyScrollLock, useEscapeClose } from "@/lib/useModalLifecycle";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type UseCasesBrowserProps = {
@@ -19,40 +21,6 @@ type UseCasesBrowserProps = {
 
 function modalId(id: string) {
   return `use-case-modal-${id}`;
-}
-
-function normalize(value: string) {
-  return value.toLowerCase().replace(/\+/g, "and").replace(/[^a-z0-9]+/g, " ").trim();
-}
-
-function splitTitle(title: string, featureLabel: string) {
-  const withMatch = title.match(/\s+with\s+/i);
-  if (withMatch?.index !== undefined) {
-    return {
-      task: title.slice(0, withMatch.index).trim(),
-      feature: featureLabel
-    };
-  }
-
-  const normalizedTitle = normalize(title);
-  const normalizedFeature = normalize(featureLabel);
-  const featureCandidates = [
-    normalizedFeature,
-    normalizedFeature.split(" ").at(-1) ?? normalizedFeature
-  ];
-  const match = featureCandidates
-    .map((candidate) => ({ candidate, index: normalizedTitle.lastIndexOf(candidate) }))
-    .find(({ index }) => index >= 0);
-
-  if (!match) {
-    return { task: title, feature: featureLabel };
-  }
-
-  const featureStart = title.length - normalizedTitle.slice(match.index).length;
-  return {
-    task: title.slice(0, featureStart).trim(),
-    feature: title.slice(featureStart).trim()
-  };
 }
 
 export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
@@ -69,7 +37,7 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
     () => items.find((item) => item.id === selectedId) ?? null,
     [items, selectedId]
   );
-  const selectedTitle = selected ? splitTitle(selected.title, selected.featureLabel) : null;
+  const selectedTitle = selected ? splitUseCaseTitle(selected.title, selected.featureLabel) : null;
 
   useEffect(() => {
     function syncFromHash() {
@@ -85,32 +53,8 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
     };
   }, [items]);
 
-  useEffect(() => {
-    if (!selectedId) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedId]);
-
-  useEffect(() => {
-    if (!selectedId) {
-      return;
-    }
-
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        closeUseCase();
-      }
-    }
-
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  });
+  useBodyScrollLock(Boolean(selectedId));
+  useEscapeClose(Boolean(selectedId), closeUseCase);
 
   function openUseCase(useCase: UseCase) {
     if (!useCase.clickable) {
@@ -151,6 +95,7 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
             exit={{ opacity: 0, scale: reduce ? 0.995 : 0.985, y: reduce ? 5 : 10 }}
             initial={{ opacity: 0.9, scale: reduce ? 0.995 : 0.985, y: reduce ? 6 : 12 }}
             layoutId={modalId(selected.id)}
+            aria-modal="true"
             role="dialog"
             transition={{ duration: reduce ? 0.2 : 0.48, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -213,20 +158,20 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
           }
           title="Student Workflows"
         >
-        <p>
-          Pick a workflow to share at your event or turn into an activity.
-        </p>
-      </PageHeader>
-      <section className="library-grid library-grid--use-cases" aria-label="Workflows">
-        {items.map((useCase) => (
-          <UseCaseCard
-            key={useCase.id}
-            layoutId={modalId(useCase.id)}
-            onOpen={() => openUseCase(useCase)}
-            useCase={useCase}
-          />
-        ))}
-      </section>
+          <p>
+            Pick a workflow to share at your event or turn into an activity.
+          </p>
+        </PageHeader>
+        <section className="library-grid library-grid--use-cases" aria-label="Workflows">
+          {items.map((useCase) => (
+            <UseCaseCard
+              key={useCase.id}
+              layoutId={modalId(useCase.id)}
+              onOpen={() => openUseCase(useCase)}
+              useCase={useCase}
+            />
+          ))}
+        </section>
       </div>
       {typeof document === "undefined" ? null : createPortal(modal, document.body)}
     </>

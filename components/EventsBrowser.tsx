@@ -11,6 +11,8 @@ import { PageHeader } from "@/components/PageHeader";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
 import { RouteLink } from "@/components/RouteLink";
 import type { LabEvent } from "@/lib/content";
+import { splitEventTitle } from "@/lib/text";
+import { useBodyScrollLock, useEscapeClose } from "@/lib/useModalLifecycle";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type EventsBrowserProps = {
@@ -19,20 +21,6 @@ type EventsBrowserProps = {
 
 function modalId(id: string) {
   return `event-modal-${id}`;
-}
-
-function splitEventTitle(title: string) {
-  const marker = " @ ";
-  const index = title.lastIndexOf(marker);
-
-  if (index < 0) {
-    return { name: title, school: "" };
-  }
-
-  return {
-    name: title.slice(0, index).trim(),
-    school: title.slice(index + marker.length).trim()
-  };
 }
 
 export function EventsBrowser({ items }: EventsBrowserProps) {
@@ -72,32 +60,8 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
     };
   }, [items, pathname]);
 
-  useEffect(() => {
-    if (!selectedId) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedId]);
-
-  useEffect(() => {
-    if (!selectedId) {
-      return;
-    }
-
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        closeEvent();
-      }
-    }
-
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  });
+  useBodyScrollLock(Boolean(selectedId));
+  useEscapeClose(Boolean(selectedId), closeEvent);
 
   function openEvent(event: LabEvent) {
     if (!event.clickable) {
@@ -138,6 +102,7 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
             exit={{ opacity: 0, scale: reduce ? 0.995 : 0.985, y: reduce ? 5 : 10 }}
             initial={{ opacity: 0.9, scale: reduce ? 0.995 : 0.985, y: reduce ? 6 : 12 }}
             layoutId={modalId(selected.id)}
+            aria-modal="true"
             role="dialog"
             transition={{ duration: reduce ? 0.2 : 0.48, ease: [0.22, 1, 0.36, 1] }}
           >

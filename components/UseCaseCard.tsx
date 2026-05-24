@@ -2,7 +2,7 @@ import { MotionCard } from "@/components/MotionCard";
 import { PixelIcon } from "@/components/PixelIcon";
 import type { UseCase } from "@/lib/content";
 import { iconForUseCase } from "@/lib/sprites";
-import { cx } from "@/lib/text";
+import { cx, splitUseCaseTitle } from "@/lib/text";
 
 type UseCaseCardProps = {
   layoutId?: string;
@@ -10,42 +10,8 @@ type UseCaseCardProps = {
   useCase: UseCase;
 };
 
-function normalize(value: string) {
-  return value.toLowerCase().replace(/\+/g, "and").replace(/[^a-z0-9]+/g, " ").trim();
-}
-
-function splitTitle(title: string, featureLabel: string) {
-  const withMatch = title.match(/\s+with\s+/i);
-  if (withMatch?.index !== undefined) {
-    return {
-      task: title.slice(0, withMatch.index).trim(),
-      feature: featureLabel
-    };
-  }
-
-  const normalizedTitle = normalize(title);
-  const normalizedFeature = normalize(featureLabel);
-  const featureCandidates = [
-    normalizedFeature,
-    normalizedFeature.split(" ").at(-1) ?? normalizedFeature
-  ];
-  const match = featureCandidates
-    .map((candidate) => ({ candidate, index: normalizedTitle.lastIndexOf(candidate) }))
-    .find(({ index }) => index >= 0);
-
-  if (!match) {
-    return { task: title, feature: featureLabel };
-  }
-
-  const featureStart = title.length - normalizedTitle.slice(match.index).length;
-  return {
-    task: title.slice(0, featureStart).trim(),
-    feature: title.slice(featureStart).trim()
-  };
-}
-
 export function UseCaseCard({ layoutId, onOpen, useCase }: UseCaseCardProps) {
-  const titleParts = splitTitle(useCase.title, useCase.featureLabel);
+  const titleParts = splitUseCaseTitle(useCase.title, useCase.featureLabel);
 
   return (
     <MotionCard

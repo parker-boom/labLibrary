@@ -39,7 +39,3 @@ export const labLibrarySections: LabLibrarySection[] = [
     sprite: "camera"
   }
 ];
-
-export function getLabLibrarySection(id: LabLibrarySection["id"]) {
-  return labLibrarySections.find((section) => section.id === id);
-}

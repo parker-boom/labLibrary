@@ -7,7 +7,8 @@
     "start": "next start",
     "build": "next build",
     "lint": "eslint .",
-    "check": "tsc --noEmit -p tsconfig.check.json"
+    "check": "tsc --noEmit -p tsconfig.check.json",
+    "verify": "npm run lint && npm run check && npm run build"
   },
   "dependencies": {
     "framer-motion": "latest",

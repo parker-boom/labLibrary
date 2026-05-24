@@ -3,26 +3,13 @@ import Link from "next/link";
 import { PixelIcon } from "@/components/PixelIcon";
 import type { LabEvent, Track, UseCase } from "@/lib/content";
 import { iconForUseCase } from "@/lib/sprites";
+import { splitEventTitle } from "@/lib/text";
 
 type TrackStarterKitProps = {
   event?: LabEvent;
   track: Track;
   useCases: UseCase[];
 };
-
-function splitEventTitle(title: string) {
-  const marker = " @ ";
-  const index = title.lastIndexOf(marker);
-
-  if (index < 0) {
-    return { name: title, school: "" };
-  }
-
-  return {
-    name: title.slice(0, index).trim(),
-    school: title.slice(index + marker.length).trim()
-  };
-}
 
 function taskOnlyTitle(title: string) {
   return title.replace(/\s+with\s+.+$/i, "").trim();

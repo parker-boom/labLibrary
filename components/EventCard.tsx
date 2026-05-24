@@ -1,27 +1,13 @@
 import Image from "next/image";
 import { MotionCard } from "@/components/MotionCard";
 import type { LabEvent } from "@/lib/content";
-import { cx } from "@/lib/text";
+import { cx, splitEventTitle } from "@/lib/text";
 
 type EventCardProps = {
   event: LabEvent;
   layoutId?: string;
   onOpen?: () => void;
 };
-
-function splitEventTitle(title: string) {
-  const marker = " @ ";
-  const index = title.lastIndexOf(marker);
-
-  if (index < 0) {
-    return { name: title, school: "" };
-  }
-
-  return {
-    name: title.slice(0, index).trim(),
-    school: title.slice(index + marker.length).trim()
-  };
-}
 
 export function EventCard({ event, layoutId, onOpen }: EventCardProps) {
   const title = splitEventTitle(event.title);

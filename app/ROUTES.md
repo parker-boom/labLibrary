@@ -1,19 +1,34 @@
-# Route Placeholders
+# Routes
 
-Implementation target:
+## Primary Routes
 
-- `/`
-- `/workflows`
-- `/workflows/[id]`
-- `/reports`
-- `/reports/[id]`
-- `/missions`
+- `/` - home menu.
+- `/missions` - event mission cards.
+- `/workflows` - student workflow cards.
+- `/reports` - field report cards.
+
+## Hash-Backed Modal Routes
+
+- `/missions#show-and-tell`
+- `/missions#prompt-a-thon`
+- `/workflows#[workflow-id]`
+- `/reports#[report-id]`
+
+Hashes open the approved modal/detail layer on top of each browsing surface.
+
+## Direct Detail Routes
+
 - `/missions/[id]`
+- `/workflows/[id]`
+- `/reports/[id]`
 
-Legacy aliases redirect:
+Direct routes render standalone detail pages for deploy previews, metadata, and future sharing.
 
-- `/use-cases`
-- `/events`
-- `/tracks`
+## Legacy Redirects
 
-This is a placeholder so the route plan is explicit before the Next.js app is initialized.
+- `/tracks` -> `/missions`
+- `/tracks/[id]` -> `/missions/[id]`
+- `/use-cases` -> `/workflows`
+- `/use-cases/[id]` -> `/workflows/[id]`
+- `/events` -> `/reports`
+- `/events/[id]` -> `/reports/[id]`

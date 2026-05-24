@@ -2,75 +2,79 @@
 
 ## Purpose
 
-Build a local polished prototype, not a production deployment. Deployment should be easy later, but the first priority is a high-quality local experience that Parker can inspect, revise, and use to coordinate future work.
+Lab Library is a polished local-first Next.js prototype for campus AI event inspiration. It is deployable as a standard App Router app, but its product value is the arcade archive experience: quick section choice, tactile cards, route-backed modal details, real event proof, generated pixel assets, optional sound, and accessible motion.
 
-## Application Structure
+## Stack
 
-Recommended implementation structure:
+- Next.js App Router
+- React
+- TypeScript
+- Framer Motion for route/card/modal transitions
+- CSS variables in `app/globals.css`
+- Local JSON data in `content/`
+
+## Current Structure
 
 ```text
-lab-library/
-  app/
-    page.tsx
-    use-cases/
-      page.tsx
-      [id]/page.tsx
-    events/
-      page.tsx
-      [id]/page.tsx
-    tracks/
-      page.tsx
-      [id]/page.tsx
-  components/
-    cards/
-    modals/
-    motion/
-    layout/
-  content/
-    use-cases.json
-    events.json
-    tracks.json
-  lib/
-    content.ts
-    routes.ts
-  public/
-    assets/
-      events/
-      generated/
-  scripts/
-    run-all.sh
-  styles/
-    brand.css
+app/
+  page.tsx
+  missions/
+  workflows/
+  reports/
+  tracks/       legacy redirect
+  use-cases/    legacy redirect
+  events/       legacy redirect
+components/
+  *Browser.tsx  grid pages plus hash-backed modals
+  *Card.tsx     browsing cards
+  *Detail.tsx   direct detail routes
+  MotionCard.tsx
+  RouteStage.tsx
+  SoundToggle.tsx
+content/
+  tracks.json
+  use-cases.json
+  events.json
+lib/
+  content.ts
+  sections.ts
+  sprites.ts
+  text.ts
+  useModalLifecycle.ts
+  usePrefersReducedMotion.ts
+public/assets/
+  events/
+  generated/
 ```
 
-The current `app/` folder only contains route placeholders. The implementation agent should replace those with real Next.js files.
+## Routing Model
 
-## Routing
+The public route names are:
 
-Use route-backed detail states:
+- `/missions`
+- `/workflows`
+- `/reports`
 
-- `/use-cases/[id]` opens a use-case detail experience.
-- `/events/[id]` opens an event detail experience.
-- `/tracks/[id]` opens a track detail experience.
+Each section supports direct detail pages at `/missions/[id]`, `/workflows/[id]`, and `/reports/[id]`.
 
-Featured items should link to their detail route. Non-featured use cases and events should render as inert cards for v1. Inactive tracks render as visible cards without a modal.
+The browsing pages use hash-backed modal states such as `/missions#show-and-tell`. This keeps the approved grid/modal experience fast while preserving direct route URLs for deploy previews, metadata, and future sharing.
 
-## Motion Standard
+Legacy aliases redirect:
 
-Motion is part of the product, not afterthought polish.
+- `/tracks` -> `/missions`
+- `/use-cases` -> `/workflows`
+- `/events` -> `/reports`
 
-Expected interaction behavior:
+## Data Flow
 
-- Cards should respond to hover/focus with depth, light, scale, or slight tilt.
-- Opening a featured item should feel spatial: selected card advances or expands into a near-fullscreen detail layer.
-- Closing should return the user to the original browsing surface without losing orientation.
-- Route transitions should avoid hard cuts unless the user has reduced motion enabled.
-- The design may use perspective, transform, spring motion, scanline overlays, and subtle background particles.
+`lib/content.ts` loads the three JSON files and exposes typed arrays plus lookup helpers. Components should read from those helpers instead of duplicating data.
 
-Use Framer Motion / Motion first. Add WebGL only if a later pass proves it materially improves the experience. The agent has 10-15% implementation wiggle room when lower-level details block the high-level goal.
+Generated sprite mappings live in `lib/sprites.ts`. Section metadata for the home page lives in `lib/sections.ts`.
 
-## Content Rules
+## Interaction Model
 
-Content is local JSON for now. Keep all ids stable. If a title changes, the id should usually remain unchanged unless the underlying concept changes.
-
-Every event has one real photo. Featured events have ordered galleries. Every use case has an icon prompt, but generated icon assets are not required before implementation starts.
+- `MotionCard` centralizes card hover, press, link/button behavior, and sound triggers.
+- `RouteStage` handles the restrained page transition between routes.
+- `useModalLifecycle` centralizes modal scroll locking and Escape-to-close behavior.
+- `SoundToggle` controls browser-safe generated audio. Audio is opt-in and stored in local storage.
+- CSS media queries and `usePrefersReducedMotion` preserve reduced-motion fallbacks.
