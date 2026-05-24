@@ -165,25 +165,6 @@ img {
   }
 }
 
-@keyframes portal-icon-wake {
-  0%,
-  100% {
-    transform: translate3d(0, -2px, 0) scale(1);
-  }
-
-  25% {
-    transform: translate3d(0, -8px, 0) scale(1.018) rotate(-1deg);
-  }
-
-  50% {
-    transform: translate3d(0, -4px, 0) scale(1.01) rotate(1deg);
-  }
-
-  75% {
-    transform: translate3d(0, -9px, 0) scale(1.024);
-  }
-}
-
 @keyframes icon-glint {
   0% {
     opacity: 0;
@@ -201,16 +182,35 @@ img {
   }
 }
 
-@keyframes card-halo-pulse {
+@keyframes home-loop-frames {
   0%,
-  100% {
-    opacity: 0.58;
-    transform: scale(1);
+  12% {
+    background-position: 0% 50%;
   }
 
-  50% {
-    opacity: 0.9;
-    transform: scale(1.035);
+  18%,
+  28% {
+    background-position: 20% 50%;
+  }
+
+  34%,
+  44% {
+    background-position: 40% 50%;
+  }
+
+  50%,
+  60% {
+    background-position: 60% 50%;
+  }
+
+  66%,
+  76% {
+    background-position: 80% 50%;
+  }
+
+  82%,
+  100% {
+    background-position: 100% 50%;
   }
 }
 
@@ -484,8 +484,56 @@ img {
   width: min(88%, 224px);
 }
 
+.portal-card__scene {
+  align-items: center;
+  display: grid;
+  height: 100%;
+  isolation: isolate;
+  justify-items: center;
+  min-height: 176px;
+  position: relative;
+  width: 100%;
+}
+
+.portal-card__sprite,
+.portal-card__loop {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.portal-card__loop {
+  background-image: var(--portal-loop-image);
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  background-size: 600% 100%;
+  display: block;
+  filter:
+    drop-shadow(-4px -4px 0 rgba(247, 243, 232, 0.86))
+    drop-shadow(7px 10px 0 rgba(17, 16, 10, 0.3))
+    drop-shadow(0 0 18px rgba(247, 243, 232, 0.18));
+  height: min(88%, 198px);
+  opacity: 0;
+  position: relative;
+  transform: translateY(-2px);
+  transition: opacity 90ms ease;
+  width: min(88%, 198px);
+  z-index: 3;
+}
+
+.portal-card--use-cases .portal-card__loop {
+  height: min(88%, 198px);
+  width: min(88%, 198px);
+}
+
+.portal-card--events .portal-card__loop {
+  height: min(88%, 198px);
+  width: min(88%, 198px);
+}
+
 .motion-card-link:hover .portal-card::before,
+.motion-card-link:focus .portal-card::before,
 .motion-card-link:focus-visible .portal-card::before,
+.portal-card:hover::before,
 .motion-card-button:hover .library-card::before,
 .motion-card-button:focus-visible .library-card::before,
 .motion-card-button:hover .track-card::before,
@@ -494,31 +542,22 @@ img {
   opacity: 0.68;
 }
 
-.motion-card-link:hover .portal-card__icon::before,
-.motion-card-link:focus-visible .portal-card__icon::before {
-  animation: card-halo-pulse 900ms ease-in-out infinite;
-}
-
 .motion-card-link:hover .portal-card__icon::after,
-.motion-card-link:focus-visible .portal-card__icon::after {
+.motion-card-link:focus .portal-card__icon::after,
+.motion-card-link:focus-visible .portal-card__icon::after,
+.portal-card:hover .portal-card__icon::after {
   background: linear-gradient(90deg, transparent, rgba(17, 16, 10, 0.42), transparent);
 }
 
-.motion-card-link:hover .portal-card__icon .pixel-icon,
-.motion-card-link:focus-visible .portal-card__icon .pixel-icon {
-  animation: portal-icon-wake 760ms steps(4, end) infinite;
-  filter:
-    drop-shadow(-4px -4px 0 rgba(247, 243, 232, 0.82))
-    drop-shadow(7px 10px 0 rgba(17, 16, 10, 0.3))
-    drop-shadow(0 0 13px rgba(247, 243, 232, 0.24));
+.motion-card-link:hover .portal-card__sprite,
+.portal-card:hover .portal-card__sprite {
+  opacity: 0;
 }
 
-.portal-card--use-cases .portal-card__icon .pixel-icon {
-  animation-delay: 80ms;
-}
-
-.portal-card--events .portal-card__icon .pixel-icon {
-  animation-delay: 140ms;
+.motion-card-link:hover .portal-card__loop,
+.portal-card:hover .portal-card__loop {
+  animation: home-loop-frames 920ms steps(1, end) infinite;
+  opacity: 1;
 }
 
 .portal-card__body {
@@ -2703,5 +2742,11 @@ img {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .motion-card-link:hover .portal-card__loop,
+  .portal-card:hover .portal-card__loop {
+    animation: home-loop-frames 980ms steps(1, end) infinite !important;
+    opacity: 1;
   }
 }

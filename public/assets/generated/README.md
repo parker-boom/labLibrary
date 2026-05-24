@@ -41,3 +41,10 @@ When assets are generated, add a short prompt/source note in this folder or in t
 - `home-icons/*.png`
   - Transparent square crops extracted from `home-portal-icons-v2.png`.
   - Used by the home portal cards so the first screen has distinct game-like section icons without yellow-heavy artwork. The first-card crop currently uses the portal from `home-portal-first-icon-candidates-v1.png`.
+- `home-hover-loops/*-loop-source.png`
+  - Generated with the built-in image generation tool on 2026-05-24.
+  - Source retained under `/Users/parkerjones/.codex/generated_images/019e5929-4121-7c00-ae53-6a836e038c15/`.
+  - Prompt summary: three 6-frame horizontal pixel-art hover animation sheets on flat green chroma-key backgrounds, matching the approved home portal, joystick, and instant-camera icons.
+- `home-hover-loops/*-loop-sheet.png`
+  - Chroma key removed locally, then each loop normalized into six transparent 512px frames in a single horizontal sprite sheet.
+  - Used by the home portal cards on hover only so the approved static icons become real generated frame animations without idle/background motion.

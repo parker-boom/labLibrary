@@ -64,12 +64,11 @@ export function MotionCard({
           ? {
               y: -8,
               rotateX: 1.2,
-              rotateY: -1.2,
-              scale: 1.015
+              rotateY: -1.2
             }
           : undefined
       }
-      whileTap={enableGestures ? { scale: 0.985, y: -2 } : undefined}
+      whileTap={enableGestures ? { y: -2 } : undefined}
       transition={{ type: "spring", stiffness: 260, damping: 24 }}
     >
       {children}
