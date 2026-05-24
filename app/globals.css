@@ -416,6 +416,43 @@ img {
   transition: opacity 180ms ease, background-position 180ms ease;
 }
 
+.library-card::after,
+.track-card::after {
+  background:
+    linear-gradient(var(--cream), var(--cream)) left 10px top 10px / 24px 3px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) left 10px top 10px / 3px 24px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left 13px top 13px / 16px 2px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left 13px top 13px / 2px 16px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) right 10px top 10px / 24px 3px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) right 10px top 10px / 3px 24px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right 13px top 13px / 16px 2px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right 13px top 13px / 2px 16px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) left 10px bottom 10px / 24px 3px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) left 10px bottom 10px / 3px 24px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left 13px bottom 13px / 16px 2px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) left 13px bottom 13px / 2px 16px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) right 10px bottom 10px / 24px 3px no-repeat,
+    linear-gradient(var(--cream), var(--cream)) right 10px bottom 10px / 3px 24px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right 13px bottom 13px / 16px 2px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) right 13px bottom 13px / 2px 16px no-repeat;
+  content: "";
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translate3d(0, 3px, 0);
+  transition: opacity 140ms ease, transform 140ms ease;
+  z-index: 5;
+}
+
+.motion-card-button:hover .library-card:not(.motion-card--disabled)::after,
+.motion-card-button:focus-visible .library-card:not(.motion-card--disabled)::after,
+.motion-card-button:hover .track-card:not(.track-card--locked)::after,
+.motion-card-button:focus-visible .track-card:not(.track-card--locked)::after {
+  opacity: 0.94;
+  transform: translate3d(0, 0, 0);
+}
+
 .portal-card__icon {
   background: #000;
   border: 2px solid var(--ink);
