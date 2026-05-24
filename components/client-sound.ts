@@ -4,18 +4,37 @@ type WindowWithWebkitAudio = Window & {
   webkitAudioContext?: typeof AudioContext;
 };
 
+const SOUND_KEY = "lab-library:sound";
+
 let sharedContext: AudioContext | null = null;
 let lastHoverBlipAt = 0;
 let musicGain: GainNode | null = null;
 let musicInterval: number | null = null;
 let musicStep = 0;
+let soundEnabledMemory = false;
 
 export function getSoundEnabled() {
   if (typeof window === "undefined") {
     return false;
   }
 
-  return window.localStorage.getItem("lab-library:sound") === "on";
+  try {
+    const stored = window.localStorage.getItem(SOUND_KEY);
+
+    if (stored === "on") {
+      soundEnabledMemory = true;
+      return true;
+    }
+
+    if (stored === "off") {
+      soundEnabledMemory = false;
+      return false;
+    }
+  } catch {
+    return soundEnabledMemory;
+  }
+
+  return soundEnabledMemory;
 }
 
 export function setSoundEnabled(enabled: boolean) {
@@ -23,7 +42,13 @@ export function setSoundEnabled(enabled: boolean) {
     return;
   }
 
-  window.localStorage.setItem("lab-library:sound", enabled ? "on" : "off");
+  soundEnabledMemory = enabled;
+  try {
+    window.localStorage.setItem(SOUND_KEY, enabled ? "on" : "off");
+  } catch {
+    // In-memory state keeps the current session responsive if storage is blocked.
+  }
+
   if (!enabled) {
     stopArcadeMusic();
   }

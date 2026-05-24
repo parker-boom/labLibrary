@@ -226,6 +226,23 @@ img {
   }
 }
 
+@keyframes music-toggle-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(-130%);
+  }
+
+  28%,
+  72% {
+    opacity: 0.78;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(130%);
+  }
+}
+
 .button,
 .icon-button {
   align-items: center;
@@ -521,6 +538,12 @@ img {
 
 .home-page .portal-card__icon::before {
   animation: home-idle-halo 5.6s ease-in-out infinite;
+}
+
+.home-page .portal-card--use-cases .portal-card__icon::before {
+  background:
+    radial-gradient(circle closest-side at 50% 52%, rgba(247, 243, 232, 0.64) 0 62%, rgba(247, 243, 232, 0.2) 63% 95%, transparent 96%),
+    repeating-linear-gradient(90deg, transparent 0 9px, rgba(247, 243, 232, 0.11) 9px 10px);
 }
 
 .home-page .motion-card-link:nth-child(2) .portal-card__icon::before {
@@ -2502,7 +2525,9 @@ img {
   color: var(--cream);
   display: inline-flex;
   height: 40px;
+  isolation: isolate;
   justify-content: center;
+  overflow: hidden;
   padding: 0;
   position: fixed;
   right: 18px;
@@ -2515,6 +2540,19 @@ img {
     transform 140ms ease;
   width: 40px;
   z-index: 24;
+}
+
+.sound-toggle::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(216, 185, 20, 0.42), transparent),
+    repeating-linear-gradient(90deg, transparent 0 5px, rgba(247, 243, 232, 0.22) 5px 6px);
+  content: "";
+  inset: 5px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-130%);
+  z-index: -1;
 }
 
 .sound-toggle:hover,
@@ -2533,7 +2571,12 @@ img {
 }
 
 .sound-toggle[aria-pressed="true"] {
+  background: rgba(17, 16, 10, 0.94);
   border-color: var(--yellow);
+  box-shadow:
+    0 0 0 1px rgba(247, 243, 232, 0.18),
+    4px 4px 0 rgba(216, 185, 20, 0.24),
+    0 0 18px rgba(216, 185, 20, 0.14);
   color: var(--yellow);
 }
 
@@ -2561,6 +2604,10 @@ img {
 
   .ambient-pixels {
     animation: ambient-pixel-breathe 8s ease-in-out infinite;
+  }
+
+  .sound-toggle[aria-pressed="true"]::before {
+    animation: music-toggle-scan 2.4s linear infinite;
   }
 
   .detail-shell::after {
