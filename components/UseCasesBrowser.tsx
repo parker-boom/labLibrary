@@ -141,18 +141,18 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
           className="use-case-modal"
           exit={{ opacity: 0 }}
           initial={{ opacity: 0 }}
-          transition={{ duration: reduce ? 0 : 0.18, ease: "easeOut" }}
+          transition={{ duration: reduce ? 0.12 : 0.18, ease: "easeOut" }}
         >
           <button aria-label="Close use case" className="use-case-modal__scrim" onClick={closeUseCase} type="button" />
           <motion.article
-            animate={reduce ? undefined : { opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             aria-labelledby={`${selected.id}-modal-title ${selected.id}-modal-feature`}
             className="use-case-modal__panel"
-            exit={reduce ? undefined : { opacity: 0, scale: 0.985, y: 10 }}
-            initial={reduce ? false : { opacity: 0.92, scale: 0.985, y: 12 }}
+            exit={{ opacity: 0, scale: reduce ? 0.995 : 0.985, y: reduce ? 5 : 10 }}
+            initial={{ opacity: 0.9, scale: reduce ? 0.995 : 0.985, y: reduce ? 6 : 12 }}
             layoutId={modalId(selected.id)}
             role="dialog"
-            transition={{ duration: reduce ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: reduce ? 0.2 : 0.48, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="use-case-modal__hero">
               <div className="use-case-modal__icon" aria-hidden="true">

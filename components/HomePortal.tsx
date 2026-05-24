@@ -31,7 +31,7 @@ export function HomePortal() {
     <div className="home-page">
       <section className="home-hero">
         <div className="home-hero__copy">
-          <h1>Lab Archive</h1>
+          <h1>Lab Arcade</h1>
         </div>
       </section>
 

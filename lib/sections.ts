@@ -16,7 +16,7 @@ export const labLibrarySections: LabLibrarySection[] = [
     href: "/missions",
     homeTitle: "Start A New Mission",
     pageTitle: "Event Missions",
-    detail: "Choose your event path.",
+    detail: "Choose your event path",
     homeIconSrc: "/assets/generated/home-icons/event-tracks.png",
     sprite: "stage"
   },
@@ -25,7 +25,7 @@ export const labLibrarySections: LabLibrarySection[] = [
     href: "/workflows",
     homeTitle: "Level Up Your AI Skills",
     pageTitle: "Student Workflows",
-    detail: "Level up with student examples.",
+    detail: "Upgrade with student examples",
     homeIconSrc: "/assets/generated/home-icons/student-use-cases.png",
     sprite: "joystick"
   },
@@ -34,7 +34,7 @@ export const labLibrarySections: LabLibrarySection[] = [
     href: "/reports",
     homeTitle: "Explore the Archive",
     pageTitle: "Field Reports",
-    detail: "Uncover notes from past hosts.",
+    detail: "Uncover notes from past hosts",
     homeIconSrc: "/assets/generated/home-icons/past-lab-events.png",
     sprite: "camera"
   }

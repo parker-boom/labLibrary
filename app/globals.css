@@ -209,6 +209,19 @@ img {
   }
 }
 
+@keyframes home-idle-dot {
+  0%,
+  100% {
+    opacity: 0.54;
+    left: var(--home-dot-start);
+  }
+
+  50% {
+    opacity: 1;
+    left: calc(100% - 10px);
+  }
+}
+
 @keyframes card-hover-scan {
   0% {
     opacity: 0;
@@ -273,13 +286,44 @@ img {
 }
 
 .home-page {
+  align-content: center;
   display: grid;
   gap: 28px;
+  min-height: calc(100vh - 188px);
 }
 
 .home-hero {
+  --home-dot-start: clamp(440px, 44%, 520px);
   min-height: 0;
   position: relative;
+}
+
+.home-hero::before {
+  background: linear-gradient(90deg, rgba(216, 185, 20, 0.2), rgba(247, 243, 232, 0.18), rgba(216, 185, 20, 0.28));
+  content: "";
+  height: 2px;
+  left: var(--home-dot-start);
+  opacity: 0.26;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 79px;
+}
+
+.home-hero::after {
+  background: var(--yellow);
+  box-shadow:
+    0 0 0 2px rgba(247, 243, 232, 0.84),
+    5px 5px 0 rgba(17, 16, 10, 0.34),
+    0 0 18px rgba(216, 185, 20, 0.28);
+  content: "";
+  height: 10px;
+  left: var(--home-dot-start);
+  opacity: 0.72;
+  pointer-events: none;
+  position: absolute;
+  top: 75px;
+  width: 10px;
 }
 
 .home-hero__copy {
@@ -304,7 +348,14 @@ img {
   text-shadow: 5px 5px 0 rgba(216, 185, 20, 0.32);
 }
 
-.page-header__copy,
+.page-header__copy {
+  color: var(--cream-2);
+  font-size: 1.16rem;
+  line-height: 1.48;
+  margin: 14px 0 0;
+  max-width: 680px;
+}
+
 .detail-empty p {
   color: var(--cream-2);
   font-size: 1.1rem;
@@ -538,9 +589,6 @@ img {
 
 .home-page .portal-card__icon::before {
   animation: home-idle-halo 5.6s ease-in-out infinite;
-}
-
-.home-page .portal-card--use-cases .portal-card__icon::before {
   background:
     radial-gradient(circle closest-side at 50% 52%, rgba(247, 243, 232, 0.64) 0 62%, rgba(247, 243, 232, 0.2) 63% 95%, transparent 96%),
     repeating-linear-gradient(90deg, transparent 0 9px, rgba(247, 243, 232, 0.11) 9px 10px);
@@ -702,16 +750,16 @@ img {
 
 .page {
   display: grid;
-  gap: 28px;
+  gap: 20px;
 }
 
 .page-header {
   align-items: start;
   display: grid;
-  gap: 24px;
+  gap: 20px;
   grid-template-columns: minmax(0, 880px) auto;
   justify-content: space-between;
-  min-height: 170px;
+  min-height: 150px;
 }
 
 .page-header__main {
@@ -745,7 +793,7 @@ img {
 }
 
 .page-header h1 {
-  font-size: 5.2rem;
+  font-size: 4.95rem;
 }
 
 .library-grid {
@@ -1567,9 +1615,9 @@ img {
 
 .track-modal .info-panel--wide h2 {
   font-family: var(--ui);
-  font-size: clamp(1rem, 1.32vw, 1.24rem);
+  font-size: clamp(0.96rem, 1.22vw, 1.14rem);
   font-weight: 950;
-  line-height: 1.14;
+  line-height: 1.08;
   text-transform: none;
 }
 
@@ -1595,8 +1643,12 @@ img {
 }
 
 .track-best-for {
-  min-height: 78px;
-  padding: 11px 14px;
+  min-height: 70px;
+  padding: 10px 12px;
+}
+
+.track-best-for .micro-label {
+  margin-bottom: 6px;
 }
 
 .track-time-card {
@@ -1700,7 +1752,7 @@ img {
 .track-event-feature__photo {
   background: var(--black);
   border: 2px solid var(--yellow);
-  min-height: 96px;
+  min-height: 124px;
   overflow: hidden;
   position: relative;
 }
@@ -2091,6 +2143,24 @@ img {
 .use-case-modal .info-panel {
   display: grid;
   gap: 14px;
+}
+
+.track-modal .track-best-for {
+  align-content: center;
+  display: grid;
+  gap: 4px;
+  min-height: 78px;
+  padding: 9px 12px;
+}
+
+.track-modal .track-best-for .micro-label {
+  line-height: 1;
+  margin: 0;
+}
+
+.track-modal .track-best-for h2 {
+  font-size: clamp(1.04rem, 1.34vw, 1.24rem);
+  line-height: 1.08;
 }
 
 .event-modal .detail-stack {
@@ -2606,6 +2676,10 @@ img {
     animation: ambient-pixel-breathe 8s ease-in-out infinite;
   }
 
+  .home-hero::after {
+    animation: home-idle-dot 3.6s steps(7, end) infinite;
+  }
+
   .sound-toggle[aria-pressed="true"]::before {
     animation: music-toggle-scan 2.4s linear infinite;
   }
@@ -2674,6 +2748,11 @@ img {
 
   .home-hero {
     min-height: 0;
+  }
+
+  .home-hero::before,
+  .home-hero::after {
+    display: none;
   }
 
   .home-hero__copy h1,
@@ -2950,5 +3029,9 @@ img {
 
   .home-page .portal-card__icon::before {
     animation: home-idle-halo 7.2s ease-in-out infinite !important;
+  }
+
+  .home-hero::after {
+    animation: home-idle-dot 4.8s steps(7, end) infinite !important;
   }
 }

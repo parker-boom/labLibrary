@@ -131,18 +131,18 @@ export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserPro
           className="track-modal use-case-modal"
           exit={{ opacity: 0 }}
           initial={{ opacity: 0 }}
-          transition={{ duration: reduce ? 0 : 0.16, ease: "easeOut" }}
+          transition={{ duration: reduce ? 0.12 : 0.16, ease: "easeOut" }}
         >
           <button aria-label="Close track" className="use-case-modal__scrim" onClick={closeTrack} type="button" />
           <motion.article
-            animate={reduce ? undefined : { opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             aria-labelledby={`${selected.id}-track-modal-title`}
             className="track-modal__panel use-case-modal__panel"
-            exit={reduce ? undefined : { opacity: 0, scale: 0.985, y: 10 }}
-            initial={reduce ? false : { opacity: 0.92, scale: 0.985, y: 12 }}
+            exit={{ opacity: 0, scale: reduce ? 0.995 : 0.985, y: reduce ? 5 : 10 }}
+            initial={{ opacity: 0.9, scale: reduce ? 0.995 : 0.985, y: reduce ? 6 : 12 }}
             layoutId={modalId(selected.id)}
             role="dialog"
-            transition={{ duration: reduce ? 0 : 0.44, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: reduce ? 0.2 : 0.44, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="track-modal__hero">
               <div className="track-modal__icon" aria-hidden="true">

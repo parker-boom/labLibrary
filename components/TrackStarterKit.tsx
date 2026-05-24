@@ -67,7 +67,7 @@ export function TrackStarterKit({ event, track, useCases }: TrackStarterKitProps
             </div>
             <div className="track-event-feature__body">
               <h3>{eventTitle.name}</h3>
-              {eventTitle.school ? <span>{eventTitle.school}</span> : null}
+              {event.locationLine ? <span>{event.locationLine}</span> : null}
             </div>
           </Link>
         ) : null}
@@ -76,7 +76,6 @@ export function TrackStarterKit({ event, track, useCases }: TrackStarterKitProps
       <section className="track-use-with">
         <div className="track-section-heading">
           <p className="micro-label">Use this with</p>
-          <span>Three examples to plug into the room.</span>
         </div>
         <div className="track-use-case-row">
           {useCases.map((item) => (
