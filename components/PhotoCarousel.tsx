@@ -23,17 +23,11 @@ export function PhotoCarousel({ images }: PhotoCarouselProps) {
     <section className="photo-carousel" aria-label="Event photo gallery">
       <div className="photo-carousel__frame">
         <Image alt={active.alt} fill priority sizes="(max-width: 880px) 92vw, 52vw" src={active.src} />
-        <div className="photo-carousel__tag">{active.role}</div>
-      </div>
-      <div className="photo-carousel__controls">
-        <button aria-label="Previous photo" className="icon-button" onClick={() => move(-1)} type="button">
-          <ChevronLeft aria-hidden="true" size={19} />
+        <button aria-label="Previous photo" className="icon-button photo-carousel__arrow photo-carousel__arrow--prev" onClick={() => move(-1)} type="button">
+          <ChevronLeft aria-hidden="true" size={21} />
         </button>
-        <span>
-          {index + 1}/{images.length}
-        </span>
-        <button aria-label="Next photo" className="icon-button" onClick={() => move(1)} type="button">
-          <ChevronRight aria-hidden="true" size={19} />
+        <button aria-label="Next photo" className="icon-button photo-carousel__arrow photo-carousel__arrow--next" onClick={() => move(1)} type="button">
+          <ChevronRight aria-hidden="true" size={21} />
         </button>
       </div>
     </section>

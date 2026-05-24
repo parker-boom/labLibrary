@@ -12,6 +12,8 @@ type MotionCardProps = {
   className?: string;
   linkClassName?: string;
   ariaLabel?: string;
+  layoutId?: string;
+  onClick?: () => void;
 };
 
 export function MotionCard({
@@ -20,7 +22,9 @@ export function MotionCard({
   disabled = false,
   className,
   linkClassName,
-  ariaLabel
+  ariaLabel,
+  layoutId,
+  onClick
 }: MotionCardProps) {
   const reduce = useReducedMotion();
 
@@ -28,6 +32,7 @@ export function MotionCard({
     <motion.article
       aria-disabled={disabled || undefined}
       className={cx("motion-card", disabled && "motion-card--disabled", className)}
+      layoutId={layoutId}
       whileHover={
         disabled || reduce
           ? undefined
@@ -46,7 +51,15 @@ export function MotionCard({
   );
 
   if (!href || disabled) {
-    return card;
+    if (!onClick || disabled) {
+      return card;
+    }
+
+    return (
+      <button aria-label={ariaLabel} className={cx("motion-card-button", linkClassName)} onClick={onClick} type="button">
+        {card}
+      </button>
+    );
   }
 
   return (

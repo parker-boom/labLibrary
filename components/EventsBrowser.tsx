@@ -1,0 +1,210 @@
+"use client";
+
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Home, X } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
+import { EventCard } from "@/components/EventCard";
+import { PageHeader } from "@/components/PageHeader";
+import { PhotoCarousel } from "@/components/PhotoCarousel";
+import type { LabEvent } from "@/lib/content";
+
+type EventsBrowserProps = {
+  items: LabEvent[];
+};
+
+function modalId(id: string) {
+  return `event-modal-${id}`;
+}
+
+function splitEventTitle(title: string) {
+  const marker = " @ ";
+  const index = title.lastIndexOf(marker);
+
+  if (index < 0) {
+    return { name: title, school: "" };
+  }
+
+  return {
+    name: title.slice(0, index).trim(),
+    school: title.slice(index + marker.length).trim()
+  };
+}
+
+export function EventsBrowser({ items }: EventsBrowserProps) {
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+
+    const initialId = window.location.hash.replace("#", "");
+    return items.some((item) => item.id === initialId && item.clickable) ? initialId : null;
+  });
+  const reduce = useReducedMotion();
+  const selected = useMemo(
+    () => items.find((item) => item.id === selectedId) ?? null,
+    [items, selectedId]
+  );
+  const selectedTitle = selected ? splitEventTitle(selected.title) : null;
+
+  useEffect(() => {
+    function syncFromHash() {
+      const hashId = window.location.hash.replace("#", "");
+      setSelectedId(items.some((item) => item.id === hashId && item.clickable) ? hashId : null);
+    }
+
+    window.addEventListener("popstate", syncFromHash);
+    window.addEventListener("hashchange", syncFromHash);
+    return () => {
+      window.removeEventListener("popstate", syncFromHash);
+      window.removeEventListener("hashchange", syncFromHash);
+    };
+  }, [items]);
+
+  useEffect(() => {
+    if (!selectedId) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (!selectedId) {
+      return;
+    }
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        closeEvent();
+      }
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  });
+
+  function openEvent(event: LabEvent) {
+    if (!event.clickable) {
+      return;
+    }
+
+    setSelectedId(event.id);
+    window.history.pushState({ labLibraryEventModal: event.id }, "", `/events#${event.id}`);
+  }
+
+  function closeEvent() {
+    if (window.history.state?.labLibraryEventModal) {
+      window.history.back();
+      return;
+    }
+
+    setSelectedId(null);
+    window.history.replaceState(null, "", "/events");
+  }
+
+  const modal = (
+    <AnimatePresence>
+      {selected ? (
+        <motion.div
+          animate={{ opacity: 1 }}
+          className="event-modal"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          transition={{ duration: reduce ? 0 : 0.18, ease: "easeOut" }}
+        >
+          <button aria-label="Close event" className="event-modal__scrim" onClick={closeEvent} type="button" />
+          <motion.article
+            aria-labelledby={`${selected.id}-event-modal-title`}
+            className="event-modal__panel"
+            layoutId={modalId(selected.id)}
+            role="dialog"
+            transition={{ duration: reduce ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="event-modal__hero">
+              <div className="event-modal__title-block">
+                <h1 id={`${selected.id}-event-modal-title`}>{selectedTitle?.name}</h1>
+                {selectedTitle?.school ? <p>{selectedTitle.school}</p> : null}
+              </div>
+              <button aria-label="Close event" className="event-modal__close" onClick={closeEvent} type="button">
+                <X aria-hidden="true" size={30} strokeWidth={2.2} />
+              </button>
+            </div>
+
+            <div className="event-modal__body detail-grid detail-grid--event-modal">
+              <div className="event-modal__media-stack">
+                <PhotoCarousel images={selected.gallery ?? [{ role: "primary", src: selected.thumbnailImage, alt: selected.title }]} />
+                <section className="info-panel event-modal__good-for">
+                  <p className="micro-label">Good for</p>
+                  <p>{selected.goodFor}</p>
+                </section>
+              </div>
+              <aside className="detail-stack">
+                <section className="quick-facts event-modal__facts">
+                  <div>
+                    <span>Audience</span>
+                    <strong>{selected.audience}</strong>
+                  </div>
+                  <div>
+                    <span>Room</span>
+                    <strong>{selected.attendees}</strong>
+                  </div>
+                  <div>
+                    <span>Host</span>
+                    <strong>{selected.hostedBy}</strong>
+                  </div>
+                </section>
+                <section className="info-panel">
+                  <p className="micro-label">Playbook</p>
+                  <ol className="number-list">
+                    {selected.eventPlaybook?.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                  <div className="info-panel__result event-modal__reflection">
+                    <p>{selected.reflection}</p>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </motion.article>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+
+  return (
+    <>
+      <div className="page">
+        <PageHeader
+          action={
+            <Link aria-label="Go home" className="page-home-link" href="/">
+              <Home aria-hidden="true" size={28} strokeWidth={2.4} />
+            </Link>
+          }
+          title="Events"
+        >
+          <p>
+            Real photos and playbooks from campus rooms students actually showed up for.
+          </p>
+        </PageHeader>
+        <section className="library-grid library-grid--events" aria-label="Past Lab events">
+          {items.map((event) => (
+            <EventCard
+              event={event}
+              key={event.id}
+              layoutId={modalId(event.id)}
+              onOpen={() => openEvent(event)}
+            />
+          ))}
+        </section>
+      </div>
+      {typeof document === "undefined" ? null : createPortal(modal, document.body)}
+    </>
+  );
+}

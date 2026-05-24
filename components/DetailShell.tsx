@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowLeft } from "lucide-react";
+import { motion, type Transition, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PixelIcon } from "@/components/PixelIcon";
@@ -23,23 +26,39 @@ export function DetailShell({
   sprite,
   title
 }: DetailShellProps) {
+  const reduce = useReducedMotion();
+  const reveal = reduce
+    ? undefined
+    : {
+        hidden: { opacity: 0, y: 14 },
+        show: { opacity: 1, y: 0 }
+      };
+  const revealTransition: Transition = { duration: 0.36, ease: [0.22, 1, 0.36, 1] };
+
   return (
-    <article className="detail-shell">
-      <div className="detail-shell__chrome">
+    <motion.article
+      animate="show"
+      className="detail-shell"
+      initial={reduce ? false : "hidden"}
+      transition={{ staggerChildren: 0.07, delayChildren: 0.05 }}
+    >
+      <motion.div className="detail-shell__chrome" transition={revealTransition} variants={reveal}>
         <Link className="back-link" href={backHref}>
           <ArrowLeft aria-hidden="true" size={17} />
           <span>{backLabel}</span>
         </Link>
         {action}
-      </div>
-      <header className="detail-shell__header">
+      </motion.div>
+      <motion.header className="detail-shell__header" transition={revealTransition} variants={reveal}>
         <PixelIcon size="lg" sprite={sprite} />
         <div>
           <p className="micro-label">{eyebrow}</p>
           <h1>{title}</h1>
         </div>
-      </header>
-      {children}
-    </article>
+      </motion.header>
+      <motion.div transition={revealTransition} variants={reveal}>
+        {children}
+      </motion.div>
+    </motion.article>
   );
 }

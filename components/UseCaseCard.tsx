@@ -1,33 +1,61 @@
 import { MotionCard } from "@/components/MotionCard";
 import { PixelIcon } from "@/components/PixelIcon";
 import type { UseCase } from "@/lib/content";
-import { spriteForUseCase } from "@/lib/sprites";
+import { iconForUseCase } from "@/lib/sprites";
 import { cx } from "@/lib/text";
 
 type UseCaseCardProps = {
+  layoutId?: string;
+  onOpen?: () => void;
   useCase: UseCase;
 };
 
-export function UseCaseCard({ useCase }: UseCaseCardProps) {
+function normalize(value: string) {
+  return value.toLowerCase().replace(/\+/g, "and").replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function splitTitle(title: string, featureLabel: string) {
+  const normalizedTitle = normalize(title);
+  const normalizedFeature = normalize(featureLabel);
+  const featureCandidates = [
+    normalizedFeature,
+    normalizedFeature.split(" ").at(-1) ?? normalizedFeature
+  ];
+  const match = featureCandidates
+    .map((candidate) => ({ candidate, index: normalizedTitle.lastIndexOf(candidate) }))
+    .find(({ index }) => index >= 0);
+
+  if (!match) {
+    return { task: title, feature: featureLabel };
+  }
+
+  const featureStart = title.length - normalizedTitle.slice(match.index).length;
+  return {
+    task: title.slice(0, featureStart).trim(),
+    feature: title.slice(featureStart).trim()
+  };
+}
+
+export function UseCaseCard({ layoutId, onOpen, useCase }: UseCaseCardProps) {
+  const titleParts = splitTitle(useCase.title, useCase.featureLabel);
+
   return (
     <MotionCard
       ariaLabel={`Open use case: ${useCase.title}`}
       className={cx("library-card use-case-card", useCase.featured && "library-card--featured")}
       disabled={!useCase.clickable}
-      href={useCase.clickable ? `/use-cases/${useCase.id}` : undefined}
+      href={onOpen ? undefined : useCase.clickable ? `/use-cases/${useCase.id}` : undefined}
+      layoutId={layoutId}
+      onClick={useCase.clickable ? onOpen : undefined}
     >
       <div className="library-card__top">
-        <PixelIcon label={useCase.featureLabel} size={useCase.featured ? "lg" : "md"} sprite={spriteForUseCase(useCase.id)} />
-        <span className="library-card__chip">{useCase.featureLabel}</span>
+        <PixelIcon imageSrc={iconForUseCase(useCase.id)} label={useCase.featureLabel} size="lg" />
       </div>
-      <h2>{useCase.title}</h2>
-      {useCase.featured ? (
-        <p>
-          Shared by {useCase.sharedBy} <span>{useCase.school}</span>
-        </p>
-      ) : (
-        <p className="library-card__inactive">Archive card loaded for v1 list view</p>
-      )}
+      <h2>
+        <span>{titleParts.task}</span>
+        {" "}
+        <span className="use-case-card__feature">{titleParts.feature}</span>
+      </h2>
     </MotionCard>
   );
 }

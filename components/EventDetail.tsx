@@ -1,4 +1,3 @@
-import { AddToTrayButton } from "@/components/AddToTrayButton";
 import { DetailShell } from "@/components/DetailShell";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
 import type { LabEvent } from "@/lib/content";
@@ -11,20 +10,9 @@ type EventDetailProps = {
 export function EventDetail({ event }: EventDetailProps) {
   return (
     <DetailShell
-      action={
-        <AddToTrayButton
-          item={{
-            id: event.id,
-            type: "event",
-            title: event.title,
-            label: event.styleLine,
-            detail: event.locationLine
-          }}
-        />
-      }
       backHref="/events"
       backLabel="Events"
-      eyebrow={`${event.styleLine} / ${event.locationLine}`}
+      eyebrow={event.locationLine}
       sprite={spriteForEvent(event.id)}
       title={event.title}
     >
@@ -52,14 +40,14 @@ export function EventDetail({ event }: EventDetailProps) {
                 <li key={step}>{step}</li>
               ))}
             </ol>
-          </section>
-          <section className="info-panel info-panel--dark">
-            <p className="micro-label">Why it works</p>
-            <p>{event.reflection}</p>
-          </section>
-          <section className="info-panel">
-            <p className="micro-label">Good for</p>
-            <p>{event.goodFor}</p>
+            <div className="info-panel__result">
+              <strong>Why it works</strong>
+              <p>{event.reflection}</p>
+            </div>
+            <div className="info-panel__result">
+              <strong>Good for</strong>
+              <p>{event.goodFor}</p>
+            </div>
           </section>
         </aside>
       </div>

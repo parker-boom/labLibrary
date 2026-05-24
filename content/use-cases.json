@@ -203,16 +203,6 @@
       "sourceType": "real-reconstructed",
       "iconObject": "A pixel-art product screen wireframe beside a research report and tiny competitor cards.",
       "iconAsset": null
-    },
-    {
-      "id": "finding-wasted-time-data-analysis",
-      "featured": false,
-      "clickable": false,
-      "title": "Finding wasted time with data analysis",
-      "featureLabel": "Data analysis",
-      "sourceType": "real-reconstructed",
-      "iconObject": "A pixel-art phone screen-time chart with an hourglass and colored app blocks.",
-      "iconAsset": null
     }
   ]
 }

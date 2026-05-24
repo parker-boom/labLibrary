@@ -12,19 +12,34 @@ export type SpriteKey =
   | "flyer"
   | "chart";
 
-export const spritePositions: Record<SpriteKey, string> = {
-  compass: "0% 0%",
-  joystick: "33.333% 0%",
-  camera: "66.667% 0%",
-  mic: "100% 0%",
-  calendar: "0% 50%",
-  project: "33.333% 50%",
-  promptCards: "66.667% 50%",
-  stage: "100% 50%",
-  toolbox: "0% 100%",
-  laptop: "33.333% 100%",
-  flyer: "66.667% 100%",
-  chart: "100% 100%"
+export const spriteImageSources: Record<SpriteKey, string> = {
+  compass: "/assets/generated/icons/compass.png",
+  joystick: "/assets/generated/icons/joystick.png",
+  camera: "/assets/generated/icons/camera.png",
+  mic: "/assets/generated/icons/mic.png",
+  calendar: "/assets/generated/icons/calendar.png",
+  project: "/assets/generated/icons/project.png",
+  promptCards: "/assets/generated/icons/promptCards.png",
+  stage: "/assets/generated/icons/stage.png",
+  toolbox: "/assets/generated/icons/toolbox.png",
+  laptop: "/assets/generated/icons/laptop.png",
+  flyer: "/assets/generated/icons/flyer.png",
+  chart: "/assets/generated/icons/chart.png"
+};
+
+const useCaseIconMap: Record<string, string> = {
+  "practicing-interviews-voice-mode": "/assets/generated/use-case-icons/practicing-interviews-voice-mode.png",
+  "managing-chaotic-week-google-calendar": "/assets/generated/use-case-icons/managing-chaotic-week-google-calendar.png",
+  "planning-campus-gala-projects": "/assets/generated/use-case-icons/planning-campus-gala-projects.png",
+  "talking-through-job-offer-deep-research": "/assets/generated/use-case-icons/talking-through-job-offer-deep-research.png",
+  "figuring-out-money-data-analysis": "/assets/generated/use-case-icons/figuring-out-money-data-analysis.png",
+  "making-club-posters-image-generation": "/assets/generated/use-case-icons/making-club-posters-image-generation.png",
+  "messy-notes-study-sheet-thinking": "/assets/generated/use-case-icons/messy-notes-study-sheet-thinking.png",
+  "mapping-codebase-github-mermaid": "/assets/generated/use-case-icons/mapping-codebase-github-mermaid.png",
+  "meeting-notes-to-do-list-apps": "/assets/generated/use-case-icons/meeting-notes-to-do-list-apps.png",
+  "travel-japanese-study-mode": "/assets/generated/use-case-icons/travel-japanese-study-mode.png",
+  "old-posts-canva-carousel-apps": "/assets/generated/use-case-icons/old-posts-canva-carousel-apps.png",
+  "mocking-up-product-deep-research": "/assets/generated/use-case-icons/mocking-up-product-deep-research.png"
 };
 
 const useCaseSpriteMap: Record<string, SpriteKey> = {
@@ -39,8 +54,7 @@ const useCaseSpriteMap: Record<string, SpriteKey> = {
   "meeting-notes-to-do-list-apps": "calendar",
   "travel-japanese-study-mode": "compass",
   "old-posts-canva-carousel-apps": "camera",
-  "mocking-up-product-deep-research": "toolbox",
-  "finding-wasted-time-data-analysis": "chart"
+  "mocking-up-product-deep-research": "toolbox"
 };
 
 const eventSpriteMap: Record<string, SpriteKey> = {
@@ -60,8 +74,18 @@ const trackSpriteMap: Record<string, SpriteKey> = {
   "builder-lab": "toolbox"
 };
 
+const trackIconMap: Record<string, string> = {
+  "show-and-tell": "/assets/generated/track-icons/show-and-tell.png",
+  "prompt-a-thon": "/assets/generated/track-icons/prompt-a-thon.png",
+  "builder-lab": "/assets/generated/track-icons/builder-lab.png"
+};
+
 export function spriteForUseCase(id: string): SpriteKey {
   return useCaseSpriteMap[id] ?? "joystick";
+}
+
+export function iconForUseCase(id: string): string {
+  return useCaseIconMap[id] ?? spriteImageSources[spriteForUseCase(id)];
 }
 
 export function spriteForEvent(id: string): SpriteKey {
@@ -70,4 +94,8 @@ export function spriteForEvent(id: string): SpriteKey {
 
 export function spriteForTrack(id: string): SpriteKey {
   return trackSpriteMap[id] ?? "compass";
+}
+
+export function iconForTrack(id: string): string {
+  return trackIconMap[id] ?? spriteImageSources[spriteForTrack(id)];
 }

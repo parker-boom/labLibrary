@@ -11,12 +11,12 @@ export function RouteStage({ children }: { children: ReactNode }) {
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.main
-        key={pathname}
         className="route-stage"
-        initial={reduce ? false : { opacity: 0, y: 16, filter: "blur(8px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        exit={reduce ? undefined : { opacity: 0, y: -8, filter: "blur(6px)" }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        key={pathname}
+        initial={reduce ? false : { opacity: 0, y: 8, scale: 0.995 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={reduce ? undefined : { opacity: 0, y: -6, scale: 0.998 }}
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.main>
