@@ -165,23 +165,6 @@ img {
   }
 }
 
-@keyframes icon-glint {
-  0% {
-    opacity: 0;
-    transform: translate3d(-35%, 0, 0) skewX(-18deg);
-  }
-
-  28%,
-  58% {
-    opacity: 0.58;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(140%, 0, 0) skewX(-18deg);
-  }
-}
-
 @keyframes home-loop-frames {
   0%,
   12% {
@@ -211,6 +194,35 @@ img {
   82%,
   100% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes home-idle-halo {
+  0%,
+  100% {
+    opacity: 0.78;
+  }
+
+  48%,
+  58% {
+    opacity: 1;
+  }
+}
+
+@keyframes card-hover-scan {
+  0% {
+    opacity: 0;
+    transform: translate3d(-44%, 0, 0) skewX(-18deg);
+  }
+
+  28%,
+  64% {
+    opacity: 0.46;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(154%, 0, 0) skewX(-18deg);
   }
 }
 
@@ -329,7 +341,13 @@ img {
 }
 
 .motion-card--disabled {
-  cursor: default;
+  cursor: not-allowed;
+  transition: filter 150ms ease, opacity 150ms ease;
+}
+
+.motion-card--disabled:hover {
+  filter: grayscale(1) saturate(0.08) brightness(0.72) contrast(0.92);
+  opacity: 0.86;
 }
 
 .portal-card,
@@ -464,6 +482,18 @@ img {
   transform-origin: 50% 44%;
 }
 
+.home-page .portal-card__icon::before {
+  animation: home-idle-halo 5.6s ease-in-out infinite;
+}
+
+.home-page .motion-card-link:nth-child(2) .portal-card__icon::before {
+  animation-delay: 680ms;
+}
+
+.home-page .motion-card-link:nth-child(3) .portal-card__icon::before {
+  animation-delay: 1360ms;
+}
+
 .portal-card__icon::after {
   background: linear-gradient(90deg, transparent, rgba(17, 16, 10, 0.32), transparent);
   bottom: 15px;
@@ -521,13 +551,13 @@ img {
 }
 
 .portal-card--use-cases .portal-card__loop {
-  height: min(88%, 198px);
-  width: min(88%, 198px);
+  height: min(80%, 140px);
+  width: min(42%, 136px);
 }
 
 .portal-card--events .portal-card__loop {
-  height: min(88%, 198px);
-  width: min(88%, 198px);
+  height: min(76%, 134px);
+  width: min(48%, 154px);
 }
 
 .motion-card-link:hover .portal-card::before,
@@ -556,7 +586,7 @@ img {
 
 .motion-card-link:hover .portal-card__loop,
 .portal-card:hover .portal-card__loop {
-  animation: home-loop-frames 920ms steps(1, end) infinite;
+  animation: home-loop-frames 1160ms steps(1, end) infinite;
   opacity: 1;
 }
 
@@ -726,6 +756,7 @@ img {
   min-height: 0;
   overflow: hidden;
   padding: 18px;
+  transition: background-position 180ms ease, box-shadow 160ms ease, filter 160ms ease;
 }
 
 .use-case-card .library-card__top::after,
@@ -763,7 +794,7 @@ img {
 .motion-card-button:focus-visible .track-card__media::after,
 .motion-card-button:hover .event-card__photo::after,
 .motion-card-button:focus-visible .event-card__photo::after {
-  animation: icon-glint 780ms ease-out;
+  animation: card-hover-scan 940ms ease-out;
 }
 
 .motion-card-button:hover .use-case-card .pixel-icon,
@@ -772,6 +803,15 @@ img {
     drop-shadow(3px 4px 0 rgba(17, 16, 10, 0.2))
     drop-shadow(0 0 10px rgba(216, 185, 20, 0.18));
   transform: translate3d(0, -3px, 0) scale(1.018);
+}
+
+.motion-card-button:hover .use-case-card:not(.motion-card--disabled) .library-card__top,
+.motion-card-button:focus-visible .use-case-card:not(.motion-card--disabled) .library-card__top {
+  background-position: 3px 2px, 6px 0, 0 6px;
+  box-shadow:
+    inset 0 0 0 4px rgba(247, 243, 232, 0.24),
+    0 0 0 2px rgba(17, 16, 10, 0.12),
+    0 0 22px rgba(216, 185, 20, 0.18);
 }
 
 .library-card__chip {
@@ -791,6 +831,7 @@ img {
 .library-card h2 {
   font-size: 2.25rem;
   position: relative;
+  transition: color 150ms ease, text-shadow 150ms ease, transform 150ms ease;
   z-index: 1;
 }
 
@@ -831,6 +872,7 @@ img {
   position: relative;
   text-shadow: none;
   text-transform: uppercase;
+  transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease, transform 150ms ease;
   z-index: 1;
 }
 
@@ -853,6 +895,55 @@ img {
   opacity: 0.75;
 }
 
+.motion-card-button:hover .library-card:not(.motion-card--disabled),
+.motion-card-button:focus-visible .library-card:not(.motion-card--disabled),
+.motion-card-button:hover .track-card:not(.track-card--locked),
+.motion-card-button:focus-visible .track-card:not(.track-card--locked) {
+  background-color: var(--yellow-2);
+}
+
+.motion-card-button:hover .library-card:not(.motion-card--disabled) h2,
+.motion-card-button:focus-visible .library-card:not(.motion-card--disabled) h2,
+.motion-card-button:hover .track-card:not(.track-card--locked) h2,
+.motion-card-button:focus-visible .track-card:not(.track-card--locked) h2 {
+  text-shadow: 2px 2px 0 rgba(247, 243, 232, 0.28);
+  transform: translate3d(0, -1px, 0);
+}
+
+.motion-card-button:hover .track-card:not(.track-card--locked) p:last-child,
+.motion-card-button:focus-visible .track-card:not(.track-card--locked) p:last-child {
+  opacity: 0.84;
+  transform: translate3d(2px, 0, 0);
+}
+
+.motion-card-button:hover .use-case-card:not(.motion-card--disabled) .use-case-card__feature,
+.motion-card-button:focus-visible .use-case-card:not(.motion-card--disabled) .use-case-card__feature,
+.motion-card-button:hover .event-card:not(.motion-card--disabled) .event-card__school,
+.motion-card-button:focus-visible .event-card:not(.motion-card--disabled) .event-card__school {
+  background: var(--black);
+  box-shadow: 3px 3px 0 rgba(17, 16, 10, 0.22);
+  color: var(--yellow-2);
+  transform: translate3d(1px, -1px, 0);
+}
+
+.motion-card--disabled:hover::before {
+  opacity: 0.08;
+}
+
+.motion-card--disabled:hover .library-card__top,
+.motion-card--disabled:hover .track-card__media,
+.motion-card--disabled:hover .event-card__photo {
+  filter: grayscale(1) saturate(0.1) brightness(0.78);
+}
+
+.motion-card--disabled:hover h2,
+.motion-card--disabled:hover p,
+.motion-card--disabled:hover .use-case-card__feature,
+.motion-card--disabled:hover .event-card__school,
+.motion-card--disabled:hover .track-card__status {
+  opacity: 0.58;
+}
+
 .event-card {
   display: grid;
   gap: 0;
@@ -865,9 +956,11 @@ img {
 .event-card__photo {
   background: var(--cream);
   border: 3px solid var(--ink);
+  box-shadow: inset 0 0 0 4px rgba(247, 243, 232, 0.08);
   min-height: 0;
   overflow: hidden;
   position: relative;
+  transition: box-shadow 160ms ease, filter 160ms ease;
   z-index: 1;
 }
 
@@ -881,6 +974,14 @@ img {
 .motion-card-button:focus-visible .event-card__photo img {
   filter: contrast(1.04) saturate(1.04);
   transform: scale(1.025);
+}
+
+.motion-card-button:hover .event-card:not(.motion-card--disabled) .event-card__photo,
+.motion-card-button:focus-visible .event-card:not(.motion-card--disabled) .event-card__photo {
+  box-shadow:
+    inset 0 0 0 4px rgba(247, 243, 232, 0.14),
+    0 0 0 2px rgba(17, 16, 10, 0.16),
+    0 0 24px rgba(216, 185, 20, 0.15);
 }
 
 .event-card__body {
@@ -922,6 +1023,7 @@ img {
   padding: 7px 8px;
   text-shadow: none;
   text-transform: uppercase;
+  transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease, transform 150ms ease;
   white-space: nowrap;
 }
 
@@ -988,6 +1090,7 @@ img {
   overflow: hidden;
   padding: 10px;
   position: relative;
+  transition: background-position 180ms ease, box-shadow 160ms ease, filter 160ms ease;
   width: 116px;
   z-index: 1;
 }
@@ -1008,6 +1111,15 @@ img {
     drop-shadow(3px 4px 0 rgba(17, 16, 10, 0.18))
     drop-shadow(0 0 10px rgba(247, 243, 232, 0.18));
   transform: translate3d(0, -3px, 0) scale(1.02);
+}
+
+.motion-card-button:hover .track-card:not(.track-card--locked) .track-card__media,
+.motion-card-button:focus-visible .track-card:not(.track-card--locked) .track-card__media {
+  background-position: 3px 2px, 6px 0, 0 6px;
+  box-shadow:
+    inset 0 0 0 4px rgba(247, 243, 232, 0.26),
+    0 0 0 2px rgba(17, 16, 10, 0.12),
+    0 0 22px rgba(216, 185, 20, 0.18);
 }
 
 .track-list--icons-plain .track-card {
@@ -1072,6 +1184,7 @@ img {
   font-size: clamp(2.6rem, 4.45vw, 4.15rem);
   line-height: 0.9;
   max-width: 760px;
+  transition: color 150ms ease, text-shadow 150ms ease, transform 150ms ease;
 }
 
 .track-card p:last-child {
@@ -1080,6 +1193,7 @@ img {
   line-height: 1.32;
   margin: 8px 0 0;
   max-width: 700px;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
 .track-card__status {
@@ -2746,7 +2860,11 @@ img {
 
   .motion-card-link:hover .portal-card__loop,
   .portal-card:hover .portal-card__loop {
-    animation: home-loop-frames 980ms steps(1, end) infinite !important;
+    animation: home-loop-frames 1160ms steps(1, end) infinite !important;
     opacity: 1;
+  }
+
+  .home-page .portal-card__icon::before {
+    animation: home-idle-halo 7.2s ease-in-out infinite !important;
   }
 }
