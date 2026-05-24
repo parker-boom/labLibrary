@@ -9,7 +9,7 @@
       "locationLine": "UC Davis",
       "school": "University of California, Davis",
       "hostedBy": "Arlina Yang",
-      "audience": "Tech club students and campus builders",
+      "audience": "Technical students and campus builders",
       "attendees": "54+",
       "thumbnailImage": "/assets/events/featured/uc-davis-promptathon-group.jpg",
       "imageSource": "real",
@@ -37,8 +37,8 @@
         "Bring in a speaker, alum, or remote guest to make the event feel bigger than a workshop.",
         "End with books, food, prizes, and a group photo."
       ],
-      "reflection": "This format works when students want to make something, not just talk about AI. The clear challenge structure gives the room energy, while the tracks let technical and creative students both find a way in.",
-      "goodFor": "Tech clubs, hackathon groups, creative student communities, or campuses where students already like fast challenges."
+      "reflection": "Students joined a fast challenge-style event where they used ChatGPT to build or mock up small AI-powered projects. The room had clear tracks, time to work, and a final share-out with prizes, food, books, and a group photo.",
+      "goodFor": "Tech clubs, creative student communities, or groups that already are experimenting with AI."
     },
     {
       "id": "chatgpt-game-night-georgia-tech",
@@ -49,7 +49,7 @@
       "locationLine": "Georgia Tech",
       "school": "Georgia Institute of Technology",
       "hostedBy": "Daira Velasquez Fonseca",
-      "audience": "ColorStack @ GT members",
+      "audience": "ColorStack Club members",
       "attendees": "50+",
       "thumbnailImage": "/assets/events/featured/georgia-tech-game-night-group.png",
       "imageSource": "real",
@@ -77,7 +77,7 @@
         "Run a second activity where students try to make AI disagree with them.",
         "Use the games to spark discussion about sycophancy, trust, and how AI responds."
       ],
-      "reflection": "The game format helps the room loosen up quickly. Once students are laughing and comparing responses, it becomes easier to talk honestly about trust, usefulness, and where AI feels strange.",
+      "reflection": "Students played low-pressure games built around ChatGPT behavior: writing funny human answers, comparing responses, and testing when AI agrees or pushes back. The format used play to make students comfortable before moving into discussion about trust, sycophancy, and how AI responds.",
       "goodFor": "Social clubs, first-time AI audiences, or any group where games can lead into real conversation."
     },
     {

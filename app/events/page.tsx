@@ -1,6 +1,5 @@
-import { EventsBrowser } from "@/components/EventsBrowser";
-import { events } from "@/lib/content";
+import { redirect } from "next/navigation";
 
-export default function EventsPage() {
-  return <EventsBrowser items={events} />;
+export default function EventsRedirectPage() {
+  redirect("/reports");
 }

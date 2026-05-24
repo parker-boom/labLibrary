@@ -15,6 +15,14 @@ function normalize(value: string) {
 }
 
 function splitTitle(title: string, featureLabel: string) {
+  const withMatch = title.match(/\s+with\s+/i);
+  if (withMatch?.index !== undefined) {
+    return {
+      task: title.slice(0, withMatch.index).trim(),
+      feature: featureLabel
+    };
+  }
+
   const normalizedTitle = normalize(title);
   const normalizedFeature = normalize(featureLabel);
   const featureCandidates = [
@@ -44,18 +52,19 @@ export function UseCaseCard({ layoutId, onOpen, useCase }: UseCaseCardProps) {
       ariaLabel={`Open use case: ${useCase.title}`}
       className={cx("library-card use-case-card", useCase.featured && "library-card--featured")}
       disabled={!useCase.clickable}
-      href={onOpen ? undefined : useCase.clickable ? `/use-cases/${useCase.id}` : undefined}
+      href={onOpen ? undefined : useCase.clickable ? `/workflows/${useCase.id}` : undefined}
       layoutId={layoutId}
       onClick={useCase.clickable ? onOpen : undefined}
     >
       <div className="library-card__top">
         <PixelIcon imageSrc={iconForUseCase(useCase.id)} label={useCase.featureLabel} size="lg" />
       </div>
-      <h2>
-        <span>{titleParts.task}</span>
-        {" "}
+      <div className="use-case-card__body">
+        <h2>
+          <span>{titleParts.task}</span>
+        </h2>
         <span className="use-case-card__feature">{titleParts.feature}</span>
-      </h2>
+      </div>
     </MotionCard>
   );
 }

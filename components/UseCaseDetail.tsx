@@ -21,8 +21,8 @@ export function UseCaseDetail({ useCase }: UseCaseDetailProps) {
           }}
         />
       }
-      backHref="/use-cases"
-      backLabel="Use cases"
+      backHref="/workflows"
+      backLabel="Workflows"
       eyebrow={`${useCase.featureLabel} / ${useCase.sharedBy}`}
       sprite={spriteForUseCase(useCase.id)}
       title={useCase.title}

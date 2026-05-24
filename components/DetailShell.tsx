@@ -1,11 +1,12 @@
 "use client";
 
+import { motion, type Transition } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { motion, type Transition, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PixelIcon } from "@/components/PixelIcon";
 import type { SpriteKey } from "@/lib/sprites";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type DetailShellProps = {
   backHref: string;
@@ -26,7 +27,7 @@ export function DetailShell({
   sprite,
   title
 }: DetailShellProps) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const reveal = reduce
     ? undefined
     : {

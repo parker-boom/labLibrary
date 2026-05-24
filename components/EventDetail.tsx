@@ -10,8 +10,8 @@ type EventDetailProps = {
 export function EventDetail({ event }: EventDetailProps) {
   return (
     <DetailShell
-      backHref="/events"
-      backLabel="Events"
+      backHref="/reports"
+      backLabel="Reports"
       eyebrow={event.locationLine}
       sprite={spriteForEvent(event.id)}
       title={event.title}
@@ -41,7 +41,7 @@ export function EventDetail({ event }: EventDetailProps) {
               ))}
             </ol>
             <div className="info-panel__result">
-              <strong>Why it works</strong>
+              <strong>What happened</strong>
               <p>{event.reflection}</p>
             </div>
             <div className="info-panel__result">

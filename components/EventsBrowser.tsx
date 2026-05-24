@@ -1,14 +1,16 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Home, X } from "lucide-react";
-import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { EventCard } from "@/components/EventCard";
 import { PageHeader } from "@/components/PageHeader";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
+import { RouteLink } from "@/components/RouteLink";
 import type { LabEvent } from "@/lib/content";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type EventsBrowserProps = {
   items: LabEvent[];
@@ -33,6 +35,7 @@ function splitEventTitle(title: string) {
 }
 
 export function EventsBrowser({ items }: EventsBrowserProps) {
+  const pathname = usePathname();
   const [selectedId, setSelectedId] = useState<string | null>(() => {
     if (typeof window === "undefined") {
       return null;
@@ -41,7 +44,7 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
     const initialId = window.location.hash.replace("#", "");
     return items.some((item) => item.id === initialId && item.clickable) ? initialId : null;
   });
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const selected = useMemo(
     () => items.find((item) => item.id === selectedId) ?? null,
     [items, selectedId]
@@ -54,13 +57,19 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
       setSelectedId(items.some((item) => item.id === hashId && item.clickable) ? hashId : null);
     }
 
+    syncFromHash();
+    const frame = requestAnimationFrame(syncFromHash);
+    const delayedSync = window.setTimeout(syncFromHash, 120);
+
     window.addEventListener("popstate", syncFromHash);
     window.addEventListener("hashchange", syncFromHash);
     return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(delayedSync);
       window.removeEventListener("popstate", syncFromHash);
       window.removeEventListener("hashchange", syncFromHash);
     };
-  }, [items]);
+  }, [items, pathname]);
 
   useEffect(() => {
     if (!selectedId) {
@@ -95,7 +104,7 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
     }
 
     setSelectedId(event.id);
-    window.history.pushState({ labLibraryEventModal: event.id }, "", `/events#${event.id}`);
+    window.history.pushState({ labLibraryEventModal: event.id }, "", `/reports#${event.id}`);
   }
 
   function closeEvent() {
@@ -105,7 +114,7 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
     }
 
     setSelectedId(null);
-    window.history.replaceState(null, "", "/events");
+    window.history.replaceState(null, "", "/reports");
   }
 
   const modal = (
@@ -139,12 +148,23 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
             <div className="event-modal__body detail-grid detail-grid--event-modal">
               <div className="event-modal__media-stack">
                 <PhotoCarousel images={selected.gallery ?? [{ role: "primary", src: selected.thumbnailImage, alt: selected.title }]} />
-                <section className="info-panel event-modal__good-for">
-                  <p className="micro-label">Good for</p>
-                  <p>{selected.goodFor}</p>
+                <section className="event-modal__good-for">
+                  <span>Good for</span>
+                  <strong>{selected.goodFor}</strong>
                 </section>
               </div>
               <aside className="detail-stack">
+                <section className="event-modal__reflection-bubble">
+                  <p>{selected.reflection}</p>
+                </section>
+                <section className="info-panel">
+                  <p className="micro-label">Playbook</p>
+                  <ol className="number-list">
+                    {selected.eventPlaybook?.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                </section>
                 <section className="quick-facts event-modal__facts">
                   <div>
                     <span>Audience</span>
@@ -157,17 +177,6 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
                   <div>
                     <span>Host</span>
                     <strong>{selected.hostedBy}</strong>
-                  </div>
-                </section>
-                <section className="info-panel">
-                  <p className="micro-label">Playbook</p>
-                  <ol className="number-list">
-                    {selected.eventPlaybook?.map((step) => (
-                      <li key={step}>{step}</li>
-                    ))}
-                  </ol>
-                  <div className="info-panel__result event-modal__reflection">
-                    <p>{selected.reflection}</p>
                   </div>
                 </section>
               </aside>
@@ -183,17 +192,17 @@ export function EventsBrowser({ items }: EventsBrowserProps) {
       <div className="page">
         <PageHeader
           action={
-            <Link aria-label="Go home" className="page-home-link" href="/">
+            <RouteLink aria-label="Go home" className="page-home-link" href="/">
               <Home aria-hidden="true" size={28} strokeWidth={2.4} />
-            </Link>
+            </RouteLink>
           }
-          title="Events"
+          title="Field Reports"
         >
           <p>
-            Real photos and playbooks from campus rooms students actually showed up for.
+            Open a report to see who came, what happened, why it worked, and how to run it.
           </p>
         </PageHeader>
-        <section className="library-grid library-grid--events" aria-label="Past Lab events">
+        <section className="library-grid library-grid--events" aria-label="Reports">
           {items.map((event) => (
             <EventCard
               event={event}

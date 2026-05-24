@@ -5,10 +5,11 @@
       "featured": true,
       "clickable": true,
       "title": "Show & Tell",
-      "description": "Beginner-friendly examples for getting started",
+      "description": "A starter mission for sharing student examples and discussing AI.",
       "iconObject": "A pixel-art mini stage with a screen, two chairs, and a small smiling chat bubble.",
       "iconAsset": null,
-      "bestFor": "Hosts who want a low-friction room where students can see practical examples, compare workflows, and realize their peers are already using AI in grounded ways.",
+      "expectedTime": "45 min",
+      "bestFor": "Hosts who want an event that works for students at any level of AI familiarity. Strong for inspiring broader use, sharing real examples, and creating a comfortable room for questions and opinions.",
       "runOfShow": [
         {
           "duration": "5 min",
@@ -37,8 +38,7 @@
         "figuring-out-money-data-analysis"
       ],
       "relatedEvents": [
-        "chatgpt-game-night-georgia-tech",
-        "founder-open-mic-uc-irvine"
+        "chatgpt-game-night-georgia-tech"
       ]
     },
     {
@@ -46,26 +46,35 @@
       "featured": true,
       "clickable": true,
       "title": "Prompt-A-Thon",
-      "description": "A quick activity for testing and remixing workflows",
+      "description": "A hands-on mission where students test and remix workflows in real time.",
       "iconObject": "A pixel-art stack of prompt cards, a lightning bolt, and a small stopwatch.",
       "iconAsset": null,
-      "bestFor": "Students who already use ChatGPT casually and need a structured way to try better workflows on real tasks.",
+      "expectedTime": "90 min",
+      "bestFor": "Hosts working with a community already exploring AI. Great for a hands-on activity where students work in teams, solve a real problem, and reflect on what they built.",
       "runOfShow": [
         {
           "duration": "5 min",
-          "step": "Pick one real task."
+          "step": "Introduce the Lab and set the mission."
         },
         {
           "duration": "10 min",
-          "step": "Try a starting prompt."
+          "step": "Show the problem, starter prompt, and what students are trying to improve."
         },
         {
           "duration": "10 min",
-          "step": "Remix it with a feature or constraint."
+          "step": "Form teams, pick an approach, and get everyone into the workspace."
         },
         {
-          "duration": "5 min",
-          "step": "Share one useful result."
+          "duration": "45 min",
+          "step": "Give attendees work time to test, remix, and build their best solution."
+        },
+        {
+          "duration": "10 min",
+          "step": "Vote, give awards, and spotlight strong submissions."
+        },
+        {
+          "duration": "10 min",
+          "step": "Close with discussion: what worked, what changed, and what people would try next."
         }
       ],
       "useThisWith": [
@@ -74,8 +83,7 @@
         "mapping-codebase-github-mermaid"
       ],
       "relatedEvents": [
-        "promptathon-uc-davis",
-        "campus-pain-point-contest-kansas"
+        "promptathon-uc-davis"
       ]
     },
     {
@@ -83,7 +91,7 @@
       "featured": false,
       "clickable": false,
       "title": "Builder Lab",
-      "description": "A longer session for solving real problems with AI",
+      "description": "A deeper mission for students ready to build something with AI agents.",
       "iconObject": "A pixel-art toolbox with a wrench, pencil, code block, and tiny green blocks.",
       "iconAsset": null,
       "status": "inactive-v1"

@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
-import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState, type ReactNode } from "react";
+import { RouteLink } from "@/components/RouteLink";
 import { cx } from "@/lib/text";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type MotionCardProps = {
   children: ReactNode;
@@ -26,7 +27,14 @@ export function MotionCard({
   layoutId,
   onClick
 }: MotionCardProps) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  const enableGestures = mounted && !disabled && !reduce;
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const card = (
     <motion.article
@@ -34,16 +42,16 @@ export function MotionCard({
       className={cx("motion-card", disabled && "motion-card--disabled", className)}
       layoutId={layoutId}
       whileHover={
-        disabled || reduce
-          ? undefined
-          : {
+        enableGestures
+          ? {
               y: -8,
               rotateX: 1.2,
               rotateY: -1.2,
               scale: 1.015
             }
+          : undefined
       }
-      whileTap={disabled || reduce ? undefined : { scale: 0.985, y: -2 }}
+      whileTap={enableGestures ? { scale: 0.985, y: -2 } : undefined}
       transition={{ type: "spring", stiffness: 260, damping: 24 }}
     >
       {children}
@@ -63,8 +71,8 @@ export function MotionCard({
   }
 
   return (
-    <Link aria-label={ariaLabel} className={cx("motion-card-link", linkClassName)} href={href}>
+    <RouteLink aria-label={ariaLabel} className={cx("motion-card-link", linkClassName)} href={href}>
       {card}
-    </Link>
+    </RouteLink>
   );
 }

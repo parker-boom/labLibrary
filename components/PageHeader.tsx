@@ -7,7 +7,7 @@ type PageHeaderProps = {
   children?: ReactNode;
 };
 
-export function PageHeader({ action, eyebrow, title, children }: PageHeaderProps) {
+export function PageHeader({ action, children, eyebrow, title }: PageHeaderProps) {
   return (
     <section className="page-header">
       <div className="page-header__main">

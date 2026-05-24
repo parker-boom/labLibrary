@@ -1,6 +1,5 @@
-import { TracksBrowser } from "@/components/TracksBrowser";
-import { tracks } from "@/lib/content";
+import { redirect } from "next/navigation";
 
-export default function TracksPage() {
-  return <TracksBrowser items={tracks} />;
+export default function TracksRedirectPage() {
+  redirect("/missions");
 }

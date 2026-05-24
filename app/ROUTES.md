@@ -3,11 +3,17 @@
 Implementation target:
 
 - `/`
+- `/workflows`
+- `/workflows/[id]`
+- `/reports`
+- `/reports/[id]`
+- `/missions`
+- `/missions/[id]`
+
+Legacy aliases redirect:
+
 - `/use-cases`
-- `/use-cases/[id]`
 - `/events`
-- `/events/[id]`
 - `/tracks`
-- `/tracks/[id]`
 
 This is a placeholder so the route plan is explicit before the Next.js app is initialized.

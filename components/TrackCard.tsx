@@ -11,17 +11,20 @@ type TrackCardProps = {
 };
 
 export function TrackCard({ layoutId, onOpen, track }: TrackCardProps) {
+  const isLocked = !track.clickable;
+
   return (
     <MotionCard
-      ariaLabel={`Open track: ${track.title}`}
-      className={cx("track-card", !track.clickable && "track-card--locked")}
-      disabled={!track.clickable}
-      href={track.clickable && !onOpen ? `/tracks/${track.id}` : undefined}
+      ariaLabel={isLocked ? `Coming soon: ${track.title}` : `Open track: ${track.title}`}
+      className={cx("track-card", isLocked && "track-card--locked")}
+      disabled={isLocked}
+      href={track.clickable && !onOpen ? `/missions/${track.id}` : undefined}
       layoutId={layoutId}
       onClick={onOpen}
     >
       <div className="track-card__media" aria-hidden="true">
         <PixelIcon imageSrc={iconForTrack(track.id)} label={track.title} size="xl" />
+        {isLocked ? <span className="track-card__status">Coming soon</span> : null}
       </div>
       <div className="track-card__body">
         <h2>{track.title}</h2>

@@ -30,3 +30,14 @@ When assets are generated, add a short prompt/source note in this folder or in t
   - Generated with the built-in image generation tool on 2026-05-23.
   - Prompt summary: three clean pixel-art event-track icons on a flat chroma-key background, no text, no black backing box, no green in the subject, then chroma-key removed and centered on transparent square canvases.
   - Used by the tracks page and track modal so the cream printed-paper media wells center the actual object art instead of fighting older black-box sprites.
+- `home-portal-icons-v2.png`
+  - Generated with the built-in image generation tool on 2026-05-23.
+  - Source retained at `/Users/parkerjones/.codex/generated_images/019e5826-a740-7361-813f-04d898d40c0a/ig_0144676696e50761016a128b614a34819681bd17208d720a86.png`.
+  - Prompt summary: three simple arcade-inventory-style home icons on a flat green chroma-key background: a route token, a joystick controller, and an instant camera.
+- `home-portal-first-icon-candidates-v1.png`
+  - Generated with the built-in image generation tool on 2026-05-23.
+  - Source retained at `/Users/parkerjones/.codex/generated_images/019e5826-a740-7361-813f-04d898d40c0a/ig_0144676696e50761016a128d42ee288196ac1c8c0c1d70f309.png`.
+  - Prompt summary: three simpler general-purpose first-card icon candidates: an arcade portal, an activity cartridge, and a prize capsule.
+- `home-icons/*.png`
+  - Transparent square crops extracted from `home-portal-icons-v2.png`.
+  - Used by the home portal cards so the first screen has distinct game-like section icons without yellow-heavy artwork. The first-card crop currently uses the portal from `home-portal-first-icon-candidates-v1.png`.

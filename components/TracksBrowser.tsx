@@ -1,19 +1,21 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Home, X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-import { EventCard } from "@/components/EventCard";
 import { PageHeader } from "@/components/PageHeader";
 import { PixelIcon } from "@/components/PixelIcon";
+import { RouteLink } from "@/components/RouteLink";
 import { TrackCard } from "@/components/TrackCard";
-import { UseCaseCard } from "@/components/UseCaseCard";
+import { TrackStarterKit } from "@/components/TrackStarterKit";
 import { getEventsByIds, getUseCasesByIds, type Track } from "@/lib/content";
 import { iconForTrack } from "@/lib/sprites";
+import { cx } from "@/lib/text";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type TracksBrowserProps = {
+  iconVariant?: TrackIconVariant;
   items: Track[];
 };
 
@@ -21,7 +23,9 @@ function modalId(id: string) {
   return `track-modal-${id}`;
 }
 
-export function TracksBrowser({ items }: TracksBrowserProps) {
+type TrackIconVariant = "plain" | "square" | "compact";
+
+export function TracksBrowser({ iconVariant = "plain", items }: TracksBrowserProps) {
   const [selectedId, setSelectedId] = useState<string | null>(() => {
     if (typeof window === "undefined") {
       return null;
@@ -30,13 +34,14 @@ export function TracksBrowser({ items }: TracksBrowserProps) {
     const initialId = window.location.hash.replace("#", "");
     return items.some((item) => item.id === initialId && item.clickable) ? initialId : null;
   });
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const selected = useMemo(
     () => items.find((item) => item.id === selectedId) ?? null,
     [items, selectedId]
   );
   const selectedUseCases = selected ? getUseCasesByIds(selected.useThisWith ?? []) : [];
   const selectedEvents = selected ? getEventsByIds(selected.relatedEvents ?? []) : [];
+  const selectedEvent = selectedEvents[0];
 
   useEffect(() => {
     function syncFromHash() {
@@ -69,6 +74,23 @@ export function TracksBrowser({ items }: TracksBrowserProps) {
       return;
     }
 
+    const resetModalScroll = () => {
+      document.querySelector<HTMLElement>(".track-modal__body")?.scrollTo({ top: 0 });
+    };
+    const animationFrame = requestAnimationFrame(resetModalScroll);
+    const delayedReset = window.setTimeout(resetModalScroll, 120);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      window.clearTimeout(delayedReset);
+    };
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (!selectedId) {
+      return;
+    }
+
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
         closeTrack();
@@ -85,7 +107,7 @@ export function TracksBrowser({ items }: TracksBrowserProps) {
     }
 
     setSelectedId(track.id);
-    window.history.pushState({ labLibraryModal: track.id }, "", `/tracks#${track.id}`);
+    window.history.pushState({ labLibraryModal: track.id }, "", `/missions#${track.id}`);
   }
 
   function closeTrack() {
@@ -95,7 +117,7 @@ export function TracksBrowser({ items }: TracksBrowserProps) {
     }
 
     setSelectedId(null);
-    window.history.replaceState(null, "", "/tracks");
+    window.history.replaceState(null, "", "/missions");
   }
 
   const modal = (
@@ -130,39 +152,7 @@ export function TracksBrowser({ items }: TracksBrowserProps) {
             </div>
 
             <div className="track-modal__body">
-              <section className="info-panel info-panel--wide">
-                <p className="micro-label">Best for</p>
-                <h2>{selected.bestFor}</h2>
-              </section>
-              <section className="run-of-show">
-                <p className="micro-label">Run of show</p>
-                <ol>
-                  {selected.runOfShow?.map((step) => (
-                    <li key={`${step.duration}-${step.step}`}>
-                      <span>{step.duration}</span>
-                      <p>{step.step}</p>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-              <section className="related-grid">
-                <div>
-                  <p className="micro-label">Use this with</p>
-                  <div className="mini-grid">
-                    {selectedUseCases.map((item) => (
-                      <UseCaseCard key={item.id} useCase={item} />
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <p className="micro-label">Related events</p>
-                  <div className="mini-grid mini-grid--events">
-                    {selectedEvents.map((item) => (
-                      <EventCard event={item} key={item.id} />
-                    ))}
-                  </div>
-                </div>
-              </section>
+              <TrackStarterKit event={selectedEvent} track={selected} useCases={selectedUseCases} />
             </div>
           </motion.article>
         </motion.div>
@@ -175,18 +165,17 @@ export function TracksBrowser({ items }: TracksBrowserProps) {
       <div className="page">
         <PageHeader
           action={
-            <Link aria-label="Go home" className="page-home-link" href="/">
+            <RouteLink aria-label="Go home" className="page-home-link" href="/">
               <Home aria-hidden="true" size={28} strokeWidth={2.4} />
-            </Link>
+            </RouteLink>
           }
-          title="Tracks"
+          title="Event Missions"
         >
           <p>
-            Choose the shape of the room first. Then layer in a student workflow and
-            proof from a past event.
+            Pick a mission to see what the event is and how to bring it to campus.
           </p>
         </PageHeader>
-        <section className="track-list" aria-label="Event tracks">
+        <section className={cx("track-list", `track-list--icons-${iconVariant}`)} aria-label="Missions">
           {items.map((track) => (
             <TrackCard
               key={track.id}

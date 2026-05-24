@@ -24,10 +24,10 @@ export function PhotoCarousel({ images }: PhotoCarouselProps) {
       <div className="photo-carousel__frame">
         <Image alt={active.alt} fill priority sizes="(max-width: 880px) 92vw, 52vw" src={active.src} />
         <button aria-label="Previous photo" className="icon-button photo-carousel__arrow photo-carousel__arrow--prev" onClick={() => move(-1)} type="button">
-          <ChevronLeft aria-hidden="true" size={21} />
+          <ChevronLeft aria-hidden="true" size={28} strokeWidth={3} />
         </button>
         <button aria-label="Next photo" className="icon-button photo-carousel__arrow photo-carousel__arrow--next" onClick={() => move(1)} type="button">
-          <ChevronRight aria-hidden="true" size={21} />
+          <ChevronRight aria-hidden="true" size={28} strokeWidth={3} />
         </button>
       </div>
     </section>

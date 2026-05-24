@@ -58,6 +58,7 @@ export type Track = {
   description: string;
   iconObject: string;
   iconAsset?: string | null;
+  expectedTime?: string;
   bestFor?: string;
   runOfShow?: Array<{
     duration: string;

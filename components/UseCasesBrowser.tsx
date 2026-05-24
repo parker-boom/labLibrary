@@ -1,15 +1,16 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Home, X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { PageHeader } from "@/components/PageHeader";
 import { PixelIcon } from "@/components/PixelIcon";
+import { RouteLink } from "@/components/RouteLink";
 import { UseCaseCard } from "@/components/UseCaseCard";
 import type { UseCase } from "@/lib/content";
 import { iconForUseCase } from "@/lib/sprites";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type UseCasesBrowserProps = {
   items: UseCase[];
@@ -24,6 +25,14 @@ function normalize(value: string) {
 }
 
 function splitTitle(title: string, featureLabel: string) {
+  const withMatch = title.match(/\s+with\s+/i);
+  if (withMatch?.index !== undefined) {
+    return {
+      task: title.slice(0, withMatch.index).trim(),
+      feature: featureLabel
+    };
+  }
+
   const normalizedTitle = normalize(title);
   const normalizedFeature = normalize(featureLabel);
   const featureCandidates = [
@@ -54,7 +63,7 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
     const initialId = window.location.hash.replace("#", "");
     return items.some((item) => item.id === initialId && item.clickable) ? initialId : null;
   });
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const selected = useMemo(
     () => items.find((item) => item.id === selectedId) ?? null,
     [items, selectedId]
@@ -108,7 +117,7 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
     }
 
     setSelectedId(useCase.id);
-    window.history.pushState({ labLibraryModal: useCase.id }, "", `/use-cases#${useCase.id}`);
+    window.history.pushState({ labLibraryModal: useCase.id }, "", `/workflows#${useCase.id}`);
   }
 
   function closeUseCase() {
@@ -118,7 +127,7 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
     }
 
     setSelectedId(null);
-    window.history.replaceState(null, "", "/use-cases");
+    window.history.replaceState(null, "", "/workflows");
   }
 
   const modal = (
@@ -133,7 +142,7 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
         >
           <button aria-label="Close use case" className="use-case-modal__scrim" onClick={closeUseCase} type="button" />
           <motion.article
-            aria-labelledby={`${selected.id}-modal-title`}
+            aria-labelledby={`${selected.id}-modal-title ${selected.id}-modal-feature`}
             className="use-case-modal__panel"
             layoutId={modalId(selected.id)}
             role="dialog"
@@ -143,12 +152,11 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
               <div className="use-case-modal__icon" aria-hidden="true">
                 <PixelIcon imageSrc={iconForUseCase(selected.id)} label={selected.featureLabel} size="lg" />
               </div>
-              <div>
-                <h1 id={`${selected.id}-modal-title`}>
-                  <span>{selectedTitle?.task}</span>
-                  {" "}
-                  <span className="use-case-modal__feature">{selectedTitle?.feature}</span>
-                </h1>
+              <div className="use-case-modal__title-block">
+                <h1 id={`${selected.id}-modal-title`}>{selectedTitle?.task}</h1>
+                <span className="use-case-modal__feature" id={`${selected.id}-modal-feature`}>
+                  {selectedTitle?.feature}
+                </span>
               </div>
               <button aria-label="Close use case" className="use-case-modal__close" onClick={closeUseCase} type="button">
                 <X aria-hidden="true" size={30} strokeWidth={2.2} />
@@ -175,10 +183,6 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
                       <li key={step}>{step}</li>
                     ))}
                   </ol>
-                  <div className="info-panel__result">
-                    <strong>Result</strong>
-                    <p>{selected.result}</p>
-                  </div>
                 </section>
                 <section className="info-panel">
                   <p className="micro-label">Event remix</p>
@@ -195,20 +199,19 @@ export function UseCasesBrowser({ items }: UseCasesBrowserProps) {
   return (
     <>
       <div className="page">
-      <PageHeader
-        action={
-          <Link aria-label="Go home" className="page-home-link" href="/">
-            <Home aria-hidden="true" size={28} strokeWidth={2.4} />
-          </Link>
-        }
-        title="Use Cases"
-      >
+        <PageHeader
+          action={
+            <RouteLink aria-label="Go home" className="page-home-link" href="/">
+              <Home aria-hidden="true" size={28} strokeWidth={2.4} />
+            </RouteLink>
+          }
+          title="Student Workflows"
+        >
         <p>
-          Start with what students already do: practice, plan, make, study, research,
-          and turn messy weeks into something survivable.
+          Pick a workflow to share at your event or turn into an activity.
         </p>
       </PageHeader>
-      <section className="library-grid library-grid--use-cases" aria-label="Use cases">
+      <section className="library-grid library-grid--use-cases" aria-label="Workflows">
         {items.map((useCase) => (
           <UseCaseCard
             key={useCase.id}

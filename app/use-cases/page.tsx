@@ -1,6 +1,5 @@
-import { UseCasesBrowser } from "@/components/UseCasesBrowser";
-import { useCases } from "@/lib/content";
+import { redirect } from "next/navigation";
 
-export default function UseCasesPage() {
-  return <UseCasesBrowser items={useCases} />;
+export default function UseCasesRedirectPage() {
+  redirect("/workflows");
 }
