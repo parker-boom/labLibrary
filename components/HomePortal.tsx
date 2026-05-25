@@ -32,6 +32,20 @@ function HomeCardScene({ portal }: { portal: LabLibrarySection }) {
   );
 }
 
+function HomeTitle({ portal }: { portal: LabLibrarySection }) {
+  if (portal.id === "use-cases") {
+    return (
+      <>
+        <span>Level Up Your</span>
+        {" "}
+        <span>AI Skills</span>
+      </>
+    );
+  }
+
+  return portal.homeTitle;
+}
+
 function markIntroSeen() {
   document.cookie = `${INTRO_COOKIE_KEY}=true; Path=/; Max-Age=31536000; SameSite=Lax`;
 
@@ -95,7 +109,9 @@ export function HomePortal() {
                 <HomeCardScene portal={portal} />
               </div>
               <div className="portal-card__body">
-                <h2>{portal.homeTitle}</h2>
+                <h2>
+                  <HomeTitle portal={portal} />
+                </h2>
                 <span>{portal.detail}</span>
               </div>
             </MotionCard>

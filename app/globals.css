@@ -884,7 +884,7 @@ html[data-lab-intro="seen"] .home-intro {
   text-transform: uppercase;
 }
 
-.portal-card__body span {
+.portal-card__body > span {
   border-left: 0;
   display: block;
   font-family: var(--mono);
@@ -901,6 +901,10 @@ html[data-lab-intro="seen"] .home-intro {
   font-size: clamp(2.65rem, 4.2vw, 3.5rem);
   line-height: 0.88;
   max-width: 360px;
+}
+
+.portal-card__body h2 span {
+  display: block;
 }
 
 .inline-link {
